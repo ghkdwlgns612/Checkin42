@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    public List<User> findAll();
 
     @Query("select u from User u " +
             " where u.cardNumber <= 1000")
@@ -15,6 +16,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u " +
             " where u.cardNumber > 1000")
     public List<User> findByCardNumberSeocho();
-
-    public List<User> findAll();
 }

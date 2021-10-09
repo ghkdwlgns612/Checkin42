@@ -44,7 +44,6 @@ public class LogController {
     @GetMapping("/allcard")
     public ResultResponseDto showCardAll() {
         List<LocationDto> result = logService.usingCardAll();
-        log.info("size = {}", result.size());
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
