@@ -15,13 +15,13 @@ public class User extends BaseTime{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long intra_id;
+    private Long intraId;
 
     private String username;
 
-    private Long card_number;
+    private Long cardNumber;
 
-    private LocalDateTime check_in;
+    private LocalDateTime checkIn;
 
-    private LocalDateTime check_out;
+    private LocalDateTime checkOut;
 }
