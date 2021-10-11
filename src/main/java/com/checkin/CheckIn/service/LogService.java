@@ -1,5 +1,6 @@
 package com.checkin.CheckIn.service;
 
+import com.checkin.CheckIn.domain.Location;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserRepository;
 import com.checkin.CheckIn.service.dto.LocationDto;
@@ -23,7 +24,7 @@ public class LogService {
             LocationDto locationDto = LocationDto.builder()
                     .cardNumber(user.getCardNumber())
                     .createTime(user.getCreated())
-                    .location("Geapo")
+                    .location(Location.GAEPO)
                     .username(user.getUsername())
                     .build();
             result.add(locationDto);
@@ -38,7 +39,7 @@ public class LogService {
             LocationDto locationDto = LocationDto.builder()
                     .cardNumber(user.getCardNumber())
                     .createTime(user.getCreated())
-                    .location("Seocho")
+                    .location(Location.SEOCHO)
                     .username(user.getUsername())
                     .build();
             result.add(locationDto);
@@ -54,7 +55,7 @@ public class LogService {
                 LocationDto locationDto = LocationDto.builder()
                         .cardNumber(user.getCardNumber())
                         .createTime(user.getCreated())
-                        .location("Geapo")
+                        .location(Location.GAEPO)
                         .username(user.getUsername())
                         .build();
                 result.add(locationDto);
@@ -62,7 +63,7 @@ public class LogService {
                 LocationDto locationDto = LocationDto.builder()
                         .cardNumber(user.getCardNumber())
                         .createTime(user.getCreated())
-                        .location("Seocho")
+                        .location(Location.SEOCHO)
                         .username(user.getUsername())
                         .build();
                 result.add(locationDto);

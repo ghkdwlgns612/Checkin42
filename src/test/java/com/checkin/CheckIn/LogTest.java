@@ -1,5 +1,6 @@
 package com.checkin.CheckIn;
 
+import com.checkin.CheckIn.domain.Location;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserRepository;
 import com.checkin.CheckIn.service.LogService;
@@ -93,7 +94,7 @@ public class LogTest {
         List<LocationDto> result = logService.usingCardAll();
 
         List<User> res1 = users.stream().filter(u -> u.getCardNumber() >= 1000).collect(Collectors.toList());
-        List<LocationDto> res2 = result.stream().filter(u -> u.getLocation().equals("Seocho")).collect(Collectors.toList());
+        List<LocationDto> res2 = result.stream().filter(u -> u.getLocation().equals(Location.SEOCHO)).collect(Collectors.toList());
 
         Assertions.assertEquals(res1.size(), res2.size());
     }
@@ -104,7 +105,7 @@ public class LogTest {
         List<LocationDto> dtos = logService.usingCardSeocho();
 
         List<User> res1 = users.stream().filter(u -> u.getCardNumber() >= 1000).collect(Collectors.toList());
-        List<LocationDto> res2 = dtos.stream().filter(u -> u.getLocation().equals("Seocho")).collect(Collectors.toList());
+        List<LocationDto> res2 = dtos.stream().filter(u -> u.getLocation().equals(Location.SEOCHO)).collect(Collectors.toList());
 
         Assertions.assertEquals(res1.size(), res2.size());
     }
@@ -115,7 +116,7 @@ public class LogTest {
         List<LocationDto> dtos = logService.usingCardGeapo();
 
         List<User> res1 = users.stream().filter(u -> u.getCardNumber() < 1000).collect(Collectors.toList());
-        List<LocationDto> res2 = dtos.stream().filter(u -> u.getLocation().equals("Geapo")).collect(Collectors.toList());
+        List<LocationDto> res2 = dtos.stream().filter(u -> u.getLocation().equals(Location.GAEPO)).collect(Collectors.toList());
 
         Assertions.assertEquals(res1.size(), res2.size());
     }
