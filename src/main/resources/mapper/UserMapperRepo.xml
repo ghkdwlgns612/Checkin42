@@ -7,12 +7,15 @@
         values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
     </insert>
     <select id="findAll" resultType="User">
-        select * from user
-    </select>
-    <select id="findByCardNumberGeapo" resultType="User">
-        select * from user where card_number <![CDATA[<=]]> 1000
+            select * from user
+        </select>
+        <select id="findByCardNumberGeapo" resultType="User">
+            select * from user where card_number <![CDATA[<=]]> 1000
     </select>
     <select id="findByCardNumberSeocho" resultType="User">
         select * from user where card_number > 1000
-    </select>
+    </select>   
+    <delete id="deleteTestAll">
+        delete from user
+    </delete>
 </mapper>

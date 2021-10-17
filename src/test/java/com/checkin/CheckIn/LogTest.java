@@ -7,6 +7,7 @@ import com.checkin.CheckIn.repository.emergency.UserRepository;
 import com.checkin.CheckIn.service.LogService;
 import com.checkin.CheckIn.service.dto.LocationDto;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,13 @@ public class LogTest {
     @BeforeAll
     public void setup() {
         addUsers();
+    }
+
+    @AfterAll
+    public void clear() { removeUsers(); }
+
+    private void removeUsers() {
+        userMapper.deleteTestAll();
     }
 
     private void addUsers() {
@@ -75,11 +83,10 @@ public class LogTest {
                 .intraId(86051L)
                 .build());
 
-//첫 번째 테스트 하는 경우에만 활성화해줘야함. 2번이상하면 중복으로 데이터가 들어감.
-//        users.stream().forEach(user -> {
-////            userRepository.save(user);
-//            userMapper.save(user);
-//        });
+        users.stream().forEach(user -> {
+//            userRepository.save(user);
+            userMapper.save(user);
+        });
     }
 
     @Test

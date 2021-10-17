@@ -15,4 +15,6 @@ public interface UserMapper {
     List<User> findByCardNumberGeapo();
 
     List<User> findByCardNumberSeocho();
+
+    void deleteTestAll();
 }
