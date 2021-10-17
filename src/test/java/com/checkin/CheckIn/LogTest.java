@@ -1,17 +1,15 @@
 package com.checkin.CheckIn;
 
-import com.checkin.CheckIn.domain.Location;
+import com.checkin.CheckIn.domain.enumeration.Location;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserRepository;
 import com.checkin.CheckIn.service.LogService;
 import com.checkin.CheckIn.service.dto.LocationDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -80,7 +78,7 @@ public class LogTest {
     }
 
     @Test
-    @DisplayName("레포지토리에서 모든 회원을 조회")
+    @DisplayName("DB에 사용자들이 있을 때 레포지토리에서 모든 회원을 조회 후 users와 사이즈가 같은지 확인")
     public void findAllfromRepository() {
         List<User> result = userRepository.findAll();
         Integer usersNumber = users.size();
@@ -89,7 +87,7 @@ public class LogTest {
     }
 
     @Test
-    @DisplayName("LogService에서 모든 회원 조회 후 개포 서초가 맞는지 확인")
+    @DisplayName("DB에 사용자들이 있을 때 LogService에서 모든 회원 조회 후 서초가 확실히 맞는지 사이즈로 확인")
     public void findAllBySeoCho() {
         List<LocationDto> result = logService.usingCardAll();
 
@@ -100,7 +98,7 @@ public class LogTest {
     }
 
     @Test
-    @DisplayName("서초카드 사용 인원 찾기")
+    @DisplayName("DB에 사용자들이 있을 때 서초카드 사용 인원을 찾아 users의 서초 인원과 비교")
     public void findCardSeocho() {
         List<LocationDto> dtos = logService.usingCardSeocho();
 
@@ -111,7 +109,7 @@ public class LogTest {
     }
 
     @Test
-    @DisplayName("개포 인원 찾기")
+    @DisplayName("DB에 사용자들이 있을 때 개포카드 사용 인원을 찾아 users의 개포 인원과 비교")
     public void findGeapo() {
         List<LocationDto> dtos = logService.usingCardGeapo();
 

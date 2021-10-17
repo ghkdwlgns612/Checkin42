@@ -1,6 +1,6 @@
 package com.checkin.CheckIn.service;
 
-import com.checkin.CheckIn.domain.Location;
+import com.checkin.CheckIn.domain.enumeration.Location;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserRepository;
 import com.checkin.CheckIn.service.dto.LocationDto;

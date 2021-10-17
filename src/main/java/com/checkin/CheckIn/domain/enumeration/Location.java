@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.domain;
+package com.checkin.CheckIn.domain.enumeration;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,5 +10,5 @@ public enum Location {
     GAEPO("GAEPO","개포");
 
     private final String key;
-    private final String title;
+    private final String value;
 }

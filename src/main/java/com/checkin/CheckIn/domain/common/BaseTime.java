@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.domain;
+package com.checkin.CheckIn.domain.common;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
