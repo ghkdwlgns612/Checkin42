@@ -37,4 +37,9 @@ public class User extends BaseTime {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
+
+    //JDBC 사용 시 SAVE 후 객체업데이트 필요.
+    public void setUserKey(Number key) {
+        this.id = (Long) key;
+    }
 }
