@@ -2,7 +2,8 @@ package com.checkin.CheckIn;
 
 import com.checkin.CheckIn.domain.enumeration.Location;
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.repository.UserRepository;
+import com.checkin.CheckIn.repository.UserMapper;
+import com.checkin.CheckIn.repository.emergency.UserRepository;
 import com.checkin.CheckIn.service.LogService;
 import com.checkin.CheckIn.service.dto.LocationDto;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LogTest {
 
+    //    @Autowired
+//    private UserRepository userRepository;
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
     @Autowired
     private LogService logService;
 
@@ -72,15 +75,18 @@ public class LogTest {
                 .intraId(86051L)
                 .build());
 
-        users.stream().forEach(user -> {
-            userRepository.save(user);
-        });
+//첫 번째 테스트 하는 경우에만 활성화해줘야함. 2번이상하면 중복으로 데이터가 들어감.
+//        users.stream().forEach(user -> {
+////            userRepository.save(user);
+//            userMapper.save(user);
+//        });
     }
 
     @Test
     @DisplayName("DB에 사용자들이 있을 때 레포지토리에서 모든 회원을 조회 후 users와 사이즈가 같은지 확인")
     public void findAllfromRepository() {
-        List<User> result = userRepository.findAll();
+//        List<User> result = userRepository.findAll();
+        List<User> result = userMapper.findAll();
         Integer usersNumber = users.size();
 
         Assertions.assertEquals(result.size(), usersNumber);

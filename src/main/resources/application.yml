@@ -9,3 +9,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.checkin.CheckIn.domain
+  mapper-locations: classpath:mapper/*.xml

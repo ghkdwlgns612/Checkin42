@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity //JPA사용 시 활성화
 @Getter
 @NoArgsConstructor
 public class User extends BaseTime {

@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.repository;
+package com.checkin.CheckIn.repository.emergency;
 
 import com.checkin.CheckIn.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;

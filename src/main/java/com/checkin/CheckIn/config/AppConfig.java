@@ -1,15 +1,6 @@
 package com.checkin.CheckIn.config;
 
-import com.checkin.CheckIn.repository.JdbcTemplateUserRepository;
-import com.checkin.CheckIn.repository.JpaUserRepository;
-import com.checkin.CheckIn.repository.UserRepository;
-import com.checkin.CheckIn.service.LogService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 
 //SPRING DATA JPA가 아닌 순수 JPA나 JDBC활용 시 사용.
 @Configuration
