@@ -3,7 +3,7 @@
 
 <mapper namespace="com.checkin.CheckIn.repository.UserMapper">
     <insert id="save">
-        insert into user (intra_id, username, card_number, check_in, check_out) //대소문자 항상주의
+        insert into user (intra_id, username, card_number, check_in, check_out)
         values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
     </insert>
     <select id="findAll" resultType="User">
