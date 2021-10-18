@@ -1,6 +1,6 @@
 package com.checkin.CheckIn.service.dto;
 
-import com.checkin.CheckIn.domain.Location;
+import com.checkin.CheckIn.domain.enumeration.Location;
 import lombok.Builder;
 import lombok.Getter;
 

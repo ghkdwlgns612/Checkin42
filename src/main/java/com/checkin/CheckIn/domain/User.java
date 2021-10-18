@@ -1,5 +1,6 @@
 package com.checkin.CheckIn.domain;
 
+import com.checkin.CheckIn.domain.common.BaseTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity //JPA사용 시 활성화
 @Getter
 @NoArgsConstructor
-public class User extends BaseTime{
+public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,5 +36,10 @@ public class User extends BaseTime{
         this.cardNumber = cardNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+    }
+
+    //JDBC 사용 시 SAVE 후 객체업데이트 필요.
+    public void setUserKey(Number key) {
+        this.id = (Long) key;
     }
 }

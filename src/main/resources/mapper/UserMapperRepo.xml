@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.checkin.CheckIn.repository.UserMapper">
+    <insert id="save">
+        insert into user (intra_id, username, card_number, check_in, check_out) //대소문자 항상주의
+        values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
+    </insert>
+    <select id="findAll" resultType="User">
+            select * from user
+        </select>
+        <select id="findByCardNumberGeapo" resultType="User">
+            select * from user where card_number <![CDATA[<=]]> 1000
+    </select>
+    <select id="findByCardNumberSeocho" resultType="User">
+        select * from user where card_number > 1000
+    </select>   
+    <delete id="deleteTestAll">
+        delete from user
+    </delete>
+</mapper>
