@@ -1,5 +1,6 @@
 package com.checkin.CheckIn.service;
 
+import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserMapper;
 import com.checkin.CheckIn.service.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -25,5 +27,10 @@ public class UserService {
                 .userImage("jihuhwan.image")
                 .userId("jihuhwan")
                 .build();
+    }
+    @Transactional
+    public List<User> allUserInfo() {
+        List<User> users = userMapper.findAll();
+        return users;
     }
 }
