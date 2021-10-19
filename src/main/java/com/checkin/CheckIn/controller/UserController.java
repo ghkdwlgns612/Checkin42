@@ -1,8 +1,8 @@
 package com.checkin.CheckIn.controller;
 
 import com.checkin.CheckIn.domain.ResultResponseDto;
-import com.checkin.CheckIn.service.ClusterService;
-import com.checkin.CheckIn.service.dto.NumberOfPeopleDto;
+import com.checkin.CheckIn.service.UserService;
+import com.checkin.CheckIn.service.dto.UserResponseDto;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class ClusterController {
+public class UserController {
 
-    private final ClusterService clusterService;
+    private final UserService userService;
 
-    @GetMapping("/cluster")
-    public ResultResponseDto numberOfPeopleCluster() {
-        NumberOfPeopleDto result = clusterService.countNumberOfPeopleCluster();
+    @GetMapping("/user")
+    public ResultResponseDto userInfo() {
+        UserResponseDto result = userService.userInfoService();
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
