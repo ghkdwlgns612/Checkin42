@@ -17,7 +17,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.checkin.CheckIn.controller"))
                 .paths(PathSelectors.any())
-                .build().apiInfo(apiInfo());
+                .build().apiInfo(apiInfo()).useDefaultResponseMessages(false);
     }
 
     private ApiInfo apiInfo() {
