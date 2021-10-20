@@ -23,11 +23,11 @@
         delete from USER
     </delete>
 
-    <select id="findByCardNumberGeapo">
+    <select id="countGaepoPeople" resultType="Integer">
         select count(*) from USER where card_number <![CDATA[<=]]> 1000
     </select>
 
-    <select id="findByCardNumberSeocho">
+    <select id="countSeochoPeople" resultType="Integer">
         select count(*) from USER where card_number > 1000
     </select>
 </mapper>
