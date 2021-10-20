@@ -17,4 +17,8 @@ public interface UserMapper {
     List<User> findByCardNumberSeocho();
 
     void deleteTestAll();
+
+    Integer countSeochoPeople();
+
+    Integer countGaepoPeople();
 }

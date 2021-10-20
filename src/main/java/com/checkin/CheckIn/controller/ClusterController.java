@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api
@@ -28,5 +30,19 @@ public class ClusterController {
                 .statusCode(HttpStatus.OK.value())
                 .data(result)
                 .build();
+    }
+
+    @PostMapping("/cluster/fix/gaepo")
+    @Operation(summary = "개포 최대인원 수정", description = "개포 클러스터의 최대 수용가능 인원을 수정합니다.")
+    public Integer fixGaepoMaxPeople(@RequestParam Integer maxGaepo) {
+        Integer result = clusterService.setGaepoMax(maxGaepo);
+        return result;
+    }
+
+    @PostMapping("/cluster/fix/seocho")
+    @Operation(summary = "서초 최대인원 수정", description = "서초 클러스터의 최대 수용가능 인원을 수정합니다.")
+    public Integer fixSeochoMaxPeople(@RequestParam Integer maxSeocho) {
+        Integer result = clusterService.setSeochoMax(maxSeocho);
+        return result;
     }
 }

@@ -15,11 +15,23 @@ public class ClusterService {
     private static int maxSeocho = 142;
 
     public NumberOfPeopleDto countNumberOfPeopleCluster() {
+        Integer seocho = userMapper.countSeochoPeople();
+        Integer gaepo = userMapper.countGaepoPeople();
         return NumberOfPeopleDto.builder()
                 .maxCapGaepo(maxGaepo)
                 .maxCapSeocho(maxSeocho)
-                .gaepo(100)
-                .seocho(50)
+                .gaepo(gaepo)
+                .seocho(seocho)
                 .build();
+    }
+
+    public Integer setGaepoMax(Integer maxGaepo) {
+        this.maxGaepo = maxGaepo;
+        return maxGaepo;
+    }
+
+    public Integer setSeochoMax(Integer maxSeocho) {
+        this.maxSeocho = maxSeocho;
+        return maxSeocho;
     }
 }

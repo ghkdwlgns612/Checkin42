@@ -6,16 +6,28 @@
         insert into USER (intra_id, username, card_number, check_in, check_out)
         values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
     </insert>
+
     <select id="findAll" resultType="User">
             select * from USER
-        </select>
-        <select id="findByCardNumberGeapo" resultType="User">
+    </select>
+
+    <select id="findByCardNumberGeapo" resultType="User">
             select * from USER where card_number <![CDATA[<=]]> 1000
     </select>
+
     <select id="findByCardNumberSeocho" resultType="User">
         select * from USER where card_number > 1000
-    </select>   
+    </select>
+
     <delete id="deleteTestAll">
         delete from USER
     </delete>
+
+    <select id="findByCardNumberGeapo">
+        select count(*) from USER where card_number <![CDATA[<=]]> 1000
+    </select>
+
+    <select id="findByCardNumberSeocho">
+        select count(*) from USER where card_number > 1000
+    </select>
 </mapper>
