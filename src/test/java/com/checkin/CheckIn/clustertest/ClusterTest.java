@@ -1,9 +1,8 @@
-package com.checkin.CheckIn.clusterTest;
+package com.checkin.CheckIn.clustertest;
 
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.UserMapper;
 import com.checkin.CheckIn.service.ClusterService;
-import com.checkin.CheckIn.service.LogService;
 import com.checkin.CheckIn.service.dto.NumberOfPeopleDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
