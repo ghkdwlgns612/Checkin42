@@ -22,7 +22,7 @@ public class CheckInOutController {
 
     @PostMapping("/user/checkin")
     @Operation(summary = "체크인", description = "체크인 버튼을 클릭 할 경우 카드 정보를 저장합니다.")
-    public ResultResponseDto checkIn(@RequestParam Integer cardNumber) {
+    public ResultResponseDto checkIn(@RequestParam Long cardNumber) {
         UserResponseDto result = checkInOutService.checkInService(cardNumber);
         return ResultResponseDto.builder()
                 .message("OK")
@@ -33,7 +33,7 @@ public class CheckInOutController {
 
     @PostMapping("/user/checkout")
     @Operation(summary = "체크아웃", description = "체크아웃 할 경우 카드 정보를 null로 변경합니다.")
-    public ResultResponseDto checkOut(@RequestParam Integer cardNumber) {
+    public ResultResponseDto checkOut(@RequestParam Long cardNumber) {
         checkInOutService.checkOutService(cardNumber);
         return ResultResponseDto.builder()
                 .message("OK")

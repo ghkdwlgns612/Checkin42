@@ -10,11 +10,11 @@ public class UserResponseDto {
     private String userImage;
     private String userId;
     private String userCursus;
-    private Integer cardNumber;
+    private Long cardNumber;
     private LocalDateTime createdAt;
 
     @Builder
-    public UserResponseDto(String userImage, String userId, String userCursus, Integer cardNumber, LocalDateTime createdAt) {
+    public UserResponseDto(String userImage, String userId, String userCursus, Long cardNumber, LocalDateTime createdAt) {
         this.userImage = userImage;
         this.userId = userId;
         this.userCursus = userCursus;
