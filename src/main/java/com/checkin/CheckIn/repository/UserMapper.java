@@ -21,4 +21,6 @@ public interface UserMapper {
     Integer countSeochoPeople();
 
     Integer countGaepoPeople();
+
+    User findByName(String username);
 }

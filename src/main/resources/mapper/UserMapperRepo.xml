@@ -30,4 +30,8 @@
     <select id="countSeochoPeople" resultType="Integer">
         select count(*) from USER where card_number > 1000
     </select>
+
+    <select id="findByName" resultType="User">
+        select * from USER where username = #{username}
+    </select>
 </mapper>
