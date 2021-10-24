@@ -38,19 +38,19 @@ public class JdbcTemplateUserRepository implements UserRepository{
 
     @Override
     public List<User> findAll() {
-        List<User> users = jdbcTemplate.query("select * from user", userRowMapper());
+        List<User> users = jdbcTemplate.query("select * from USER", userRowMapper());
         return users;
     }
 
     @Override
     public List<User> findByCardNumberGeapo() {
-        List<User> users = jdbcTemplate.query("select * from user where card_number <= ?", userRowMapper(), 1000);
+        List<User> users = jdbcTemplate.query("select * from USER where card_number <= ?", userRowMapper(), 1000);
         return users;
     }
 
     @Override
     public List<User> findByCardNumberSeocho() {
-        List<User> users = jdbcTemplate.query("select * from user where card_number > ?", userRowMapper(), 1000);
+        List<User> users = jdbcTemplate.query("select * from USER where card_number > ?", userRowMapper(), 1000);
         return users;
     }
 
@@ -59,7 +59,7 @@ public class JdbcTemplateUserRepository implements UserRepository{
             User user = User.builder()
                     .intraId(rs.getLong("intra_id"))
                     .username(rs.getString("username"))
-                    .cardNumber(rs.getLong("card_number"))
+                    .cardNumber(rs.getInt("card_number"))
                     .checkIn(rs.getObject("check_in", LocalDateTime.class))
                     .checkOut(rs.getObject("check_out", LocalDateTime.class))
                     .build();

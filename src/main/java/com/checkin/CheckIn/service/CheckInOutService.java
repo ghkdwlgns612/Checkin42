@@ -17,7 +17,7 @@ public class CheckInOutService {
     private final UserMapper userMapper;
 
     @Transactional
-    public UserResponseDto checkInService(Long cardNumber) {
+    public UserResponseDto checkInService(Integer cardNumber) {
         return UserResponseDto.builder()
                 .cardNumber(cardNumber)
                 .userCursus("42Cursus")
@@ -28,7 +28,7 @@ public class CheckInOutService {
     }
 
     @Transactional
-    public void checkOutService(Long cardNumber) {
+    public void checkOutService(Integer cardNumber) {
 
     }
 }

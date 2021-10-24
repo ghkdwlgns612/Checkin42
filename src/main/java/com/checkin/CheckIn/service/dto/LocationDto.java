@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 public class LocationDto {
     private Location location;
     private String username;
-    private Long cardNumber;
+    private Integer cardNumber;
     private LocalDateTime createTime;
 
     @Builder
-    public LocationDto(Location location, String username, Long cardNumber, LocalDateTime createTime) {
+    public LocationDto(Location location, String username, Integer cardNumber, LocalDateTime createTime) {
         this.location = location;
         this.username = username;
         this.cardNumber = cardNumber;

@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto userInfo(@RequestParam String username) {
+    public ResultResponseDto userInfo(@Deprecated @RequestParam String username) {
         UserResponseDto result = userService.userInfoService(username);
         return ResultResponseDto.builder()
                 .message("OK")

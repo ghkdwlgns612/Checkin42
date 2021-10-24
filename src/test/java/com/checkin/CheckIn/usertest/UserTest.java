@@ -32,7 +32,7 @@ public class UserTest {
                 .intraId(86991L)
                 .checkIn(LocalDateTime.of(2021,10,1,13,0))
                 .checkOut(LocalDateTime.of(2021,10,1,20,0))
-                .cardNumber(13L)
+                .cardNumber(13)
                 .build();
 
         gpark = User.builder()
@@ -40,7 +40,7 @@ public class UserTest {
                 .intraId(86973L)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0))
                 .checkOut(LocalDateTime.of(2021,10,1,12,0))
-                .cardNumber(12L)
+                .cardNumber(12)
                 .build();
     }
 
@@ -48,7 +48,7 @@ public class UserTest {
     @DisplayName("DB에 유저들이 주어졌을 때 jihuhwan이란 이름을 가진 유저의 정보를 가져오는 테스트")
     public void callUserInfoJihuhwan() {
         String username = jihuhwan.getUsername();
-        Long cardNumber = jihuhwan.getCardNumber();
+        Integer cardNumber = jihuhwan.getCardNumber();
 
         UserResponseDto result = userService.userInfoService("jihuhwan");
 
@@ -60,7 +60,7 @@ public class UserTest {
     @DisplayName("DB에 유저들이 주어졌을 때 jihuhwan이란 이름을 가져와 gpark의 정보와 비교하는 테스트")
     public void callUserInfoGpark() {
         String username = gpark.getUsername();
-        Long cardNumber = gpark.getCardNumber();
+        Integer cardNumber = gpark.getCardNumber();
 
         UserResponseDto result = userService.userInfoService("jihuhwan");
 
