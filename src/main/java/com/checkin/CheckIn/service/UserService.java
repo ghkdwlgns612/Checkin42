@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,15 +18,17 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional
-    public UserResponseDto userInfoService() {
+    public UserResponseDto userInfoService(String username) {
+        User result = userMapper.findByName(username);
         return UserResponseDto.builder()
-                .userCursus("42 Cursus")
-                .createdAt(LocalDateTime.of(2021,10,1,8,0))
-                .cardNumber(1010)
-                .userImage("jihuhwan.image")
-                .userId("jihuhwan")
+                .userCursus("42 Cursus") //Oauth필요.
+                .createdAt(result.getCreated())
+                .cardNumber(result.getCardNumber())
+                .userImage("jihuhwan.image") //Oauth필요.
+                .userId(result.getUsername())
                 .build();
     }
+
     @Transactional
     public List<User> allUserInfo() {
         List<User> users = userMapper.findAll();

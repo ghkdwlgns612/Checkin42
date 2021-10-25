@@ -23,14 +23,14 @@ public class User extends BaseTime {
 
     private String username;
 
-    private Long cardNumber;
+    private Integer cardNumber;
 
     private LocalDateTime checkIn;
 
     private LocalDateTime checkOut;
 
     @Builder
-    public User(Long intraId, String username, Long cardNumber, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public User(Long intraId, String username, Integer cardNumber, LocalDateTime checkIn, LocalDateTime checkOut) {
         this.intraId = intraId;
         this.username = username;
         this.cardNumber = cardNumber;
@@ -43,3 +43,4 @@ public class User extends BaseTime {
         this.id = (Long) key;
     }
 }
+
