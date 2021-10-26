@@ -22,7 +22,6 @@ public class CheckInOutService {
                 .cardNumber(cardNumber)
                 .userCursus("42Cursus")
                 .userId("jihuhwan")
-                .userImage("http://jihuhwan.image")
                 .createdAt(LocalDateTime.of(2021,10,1,8,0))
                 .build();
     }
