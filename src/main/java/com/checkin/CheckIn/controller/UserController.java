@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
     public ResultResponseDto userInfo(@Deprecated @RequestParam String username) {
@@ -34,6 +36,7 @@ public class UserController {
                 .build();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/user/test")
     @Operation(summary = "모든 유저 조회", description = "모든 유저의 정보를 조회합니다.")
     public ResultResponseDto allUserInfo() {
