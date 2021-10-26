@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.resource;
+package com.checkin.CheckIn.utils.resource;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.AllArgsConstructor;

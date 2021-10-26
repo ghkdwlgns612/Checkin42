@@ -1,21 +1,17 @@
 package com.checkin.CheckIn.controller;
 
-import com.auth0.jwt.JWT;
 import com.checkin.CheckIn.domain.ResultResponseDto;
 import com.checkin.CheckIn.repository.UserMapper;
-import com.checkin.CheckIn.resource.YAMLSecurityResource;
-import com.checkin.CheckIn.service.UserService;
+import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import com.checkin.CheckIn.utils.JWTUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -23,12 +19,10 @@ public class CallBackController {
 
     private final JWTUtils jwtUtils;
     private final UserMapper userMapper;
-    private final YAMLSecurityResource yamlSecurityResource;
 
-    public CallBackController(JWTUtils jwtUtils, UserMapper userMapper, YAMLSecurityResource yamlSecurityResource) {
+    public CallBackController(JWTUtils jwtUtils, UserMapper userMapper) {
         this.jwtUtils = jwtUtils;
         this.userMapper = userMapper;
-        this.yamlSecurityResource = yamlSecurityResource;
     }
 
     @CrossOrigin(origins = "*")
@@ -47,13 +41,13 @@ public class CallBackController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/mock-check-token/{username}")
+    @GetMapping("/mock-verfiy-token/{username}")
     public ResultResponseDto<String> MockValidateToken(@PathVariable String username, HttpServletRequest request) {
         try {
             Cookie[] cookies = request.getCookies();
             Optional<Cookie> token = Arrays.stream(cookies).findFirst().filter((cookie) -> cookie.getName().equals("token"));
             try {
-                jwtUtils.verfiyMyToken(token.get().getValue());
+                jwtUtils.verifyJWT(token.get().getValue());
             } catch (Exception e) {
                 return ResultResponseDto.<String>builder()
                         .statusCode(HttpStatus.UNAUTHORIZED.value())
