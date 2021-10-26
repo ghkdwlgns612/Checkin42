@@ -1,21 +1,14 @@
 package com.checkin.CheckIn.utils;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
 @Component
-//@PropertySource("classpath:application.yml")
 public class JWTUtils {
-
-    //    @Value("${spring.config.import}")
-    //    private static String JWT_KEY;
-
-    //Why Indexed YamlSecurityResource cannot
 
     private final YAMLSecurityResource yamlSecurityResource;
 
@@ -33,7 +26,7 @@ public class JWTUtils {
                 ;
     }
 
-    public void verfiyMyToken(String token) {
+    public void verifyJWT(String token) {
         JWT.require(yamlSecurityResource.getAlgorithm()).build().verify(token);
     }
 }
