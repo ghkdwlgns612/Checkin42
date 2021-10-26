@@ -4,6 +4,9 @@ import com.checkin.CheckIn.domain.ResultResponseDto;
 import com.checkin.CheckIn.repository.UserMapper;
 import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import com.checkin.CheckIn.utils.JWTUtils;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Api
 @RestController
+@Slf4j
 public class CallBackController {
 
     private final JWTUtils jwtUtils;
@@ -27,6 +32,7 @@ public class CallBackController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/mock-make-token/{username}")
+    @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
     public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username)));
@@ -42,6 +48,7 @@ public class CallBackController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/mock-verfiy-token/{username}")
+    @Operation(summary = "쿠키 값 수신 및 검증", description = "username으로 RequestHeader의 쿠키를 통해 전달된 JWT가 정상적인지 검증")
     public ResultResponseDto<String> MockValidateToken(@PathVariable String username, HttpServletRequest request) {
         try {
             Cookie[] cookies = request.getCookies();

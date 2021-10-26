@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/user/test")
-    @Operation(summary = "모든 유저 조회", description = "모든 유저의 정보를 조회합니다.")
+    @GetMapping("/user/all")
+    @Operation(summary = "모든 유저 조회", description = "DB내의 모든 유저의 정보를 조회합니다.")
     public ResultResponseDto allUserInfo() {
         List<User> result = userService.allUserInfo();
         return ResultResponseDto.builder()
