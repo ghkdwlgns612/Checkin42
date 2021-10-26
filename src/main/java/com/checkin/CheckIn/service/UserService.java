@@ -24,7 +24,6 @@ public class UserService {
                 .userCursus("42 Cursus") //Oauth필요.
                 .createdAt(result.getCreated())
                 .cardNumber(result.getCardNumber())
-                .userImage("jihuhwan.image") //Oauth필요.
                 .userId(result.getUsername())
                 .build();
     }

@@ -7,15 +7,13 @@ import java.time.LocalDateTime;
 @Getter
 public class UserResponseDto {
 
-    private String userImage;
     private String userId;
     private String userCursus;
     private Integer cardNumber;
     private LocalDateTime createdAt;
 
     @Builder
-    public UserResponseDto(String userImage, String userId, String userCursus, Integer cardNumber, LocalDateTime createdAt) {
-        this.userImage = userImage;
+    public UserResponseDto(String userId, String userCursus, Integer cardNumber, LocalDateTime createdAt) {
         this.userId = userId;
         this.userCursus = userCursus;
         this.cardNumber = cardNumber;
