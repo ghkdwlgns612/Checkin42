@@ -1,6 +1,6 @@
 package com.checkin.CheckIn;
 
-import com.checkin.CheckIn.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

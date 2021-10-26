@@ -4,12 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.Verification;
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import com.checkin.CheckIn.utils.JWTUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +34,14 @@ public class JWTTest {
                 .build());
     }
 
-    @DisplayName("1. Validate Json Web Token")
+    @DisplayName("1. Validate Given JWT")
     @Test
     public void validateJWT() {
         String token = makeJWT();
-        assertDoesNotThrow(() -> jwtUtils.verfiyMyToken(token));
+        assertDoesNotThrow(() -> jwtUtils.verifyJWT(token));
     }
 
-    @DisplayName("2. Validate failure by Expired")
+    @DisplayName("2. When given JWT expired, then validate failure by expired JWT")
     @Test
     public void ExpiredJWT() throws InterruptedException {
         String token = JWT.create()
@@ -56,7 +53,7 @@ public class JWTTest {
         assertThrows(TokenExpiredException.class, () -> JWT.require(yamlSecurityResource.getAlgorithm()).build().verify(token));
     }
 
-    @DisplayName("3. Validate failure by Different exp")
+    @DisplayName("3. Given gpark JWT, then validate failure by Different exp claim")
     @Test
     public void WrongNameJWT() throws InterruptedException {
         String token = makeJWT();
@@ -66,6 +63,6 @@ public class JWTTest {
         String[] tokenSplit2 = anotherTimeToken.split("\\.");
         tokenSplit2[1] = tokenSplit2[1];
         String notValidToken = tokenSplit[0] + "." + tokenSplit2[1] + "." + tokenSplit[2];
-        assertThrows(SignatureVerificationException.class, () -> jwtUtils.verfiyMyToken(notValidToken));
+        assertThrows(SignatureVerificationException.class, () -> jwtUtils.verifyJWT(notValidToken));
     }
 }
