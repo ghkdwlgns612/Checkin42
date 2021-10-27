@@ -2,6 +2,7 @@ package com.checkin.CheckIn.error;
 
 import com.checkin.CheckIn.domain.ResultResponseDto;
 import javassist.NotFoundException;
+import javassist.bytecode.DuplicateMemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,4 +21,15 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .build();
     }
+
+    @ExceptionHandler(DuplicateMemberException.class)
+    public ResultResponseDto handlerDuplicateMemberException(Exception e) {
+        log.info(e.getMessage());
+        return ResultResponseDto.builder()
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .message(e.getMessage())
+                .data(null)
+                .build();
+    }
+
 }
