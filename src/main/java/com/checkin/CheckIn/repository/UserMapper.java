@@ -4,6 +4,7 @@ import com.checkin.CheckIn.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
@@ -22,5 +23,9 @@ public interface UserMapper {
 
     Integer countGaepoPeople();
 
-    User findByName(String username);
+    Optional<User> findByName(String username);
+
+    void updateByCardNumber(Integer cardNumber, String username);
+
+    void deleteByName(String username);
 }

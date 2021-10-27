@@ -35,7 +35,7 @@ public class CallBackController {
     @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
     public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username)));
+        Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username).get()));
         cookie.setMaxAge(7 * 24 * 60 * 60);
         cookie.setPath("/");
         response.addCookie(cookie);
