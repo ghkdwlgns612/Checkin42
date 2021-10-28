@@ -59,12 +59,14 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Integer cardNumber, String username) {
+    public void updateUser(Integer cardNumber, String username) throws NotFoundException {
+        userInfoService(username);
         userMapper.updateByCardNumber(cardNumber, username);
     }
 
     @Transactional
-    public void deleteUser(String username) {
+    public void deleteUser(String username) throws NotFoundException {
+        userInfoService(username);
         userMapper.deleteByName(username);
     }
 }

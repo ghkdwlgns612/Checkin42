@@ -49,8 +49,8 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @PutMapping("/user")
     @Operation(summary = "유저 정보 변경", description = "DB에 유저를 찾아 cardNumber를 변경합니다.")
-    public ResultResponseDto updateUser(@RequestParam Integer cardNumber,
-                                        @RequestParam String username) {
+    public ResultResponseDto updateUser(@RequestParam(required = false) Integer cardNumber,
+                                        @RequestParam String username) throws NotFoundException {
         userService.updateUser(cardNumber, username);
         return ResultResponseDto.builder()
                 .message("OK")
@@ -62,7 +62,7 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @DeleteMapping("/user")
     @Operation(summary = "유저 삭제", description = "DB의 user를 삭제합니다.")
-    public ResultResponseDto deleteUser(@RequestParam String username) {
+    public ResultResponseDto deleteUser(@RequestParam String username) throws NotFoundException {
         userService.deleteUser(username);
         return ResultResponseDto.builder()
                 .message("OK")
