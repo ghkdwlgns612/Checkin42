@@ -34,4 +34,12 @@
     <select id="findByName" resultType="User">
         select * from USER where username = #{username}
     </select>
+
+    <update id="updateByCardNumber">
+        update USER set card_number = #{cardNumber} where username = #{username}
+    </update>
+
+    <delete id="deleteByName">
+        delete from USER where username = #{username}
+    </delete>
 </mapper>

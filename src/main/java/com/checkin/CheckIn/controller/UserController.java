@@ -6,13 +6,11 @@ import com.checkin.CheckIn.service.UserService;
 import com.checkin.CheckIn.service.dto.UserResponseDto;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,12 +25,49 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto userInfo(@Deprecated @RequestParam String username) {
+    public ResultResponseDto userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
         UserResponseDto result = userService.userInfoService(username);
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
                 .data(result)
+                .build();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/user")
+    @Operation(summary = "유저 등록", description = "DB에 유저를 등록합니다.")
+    public ResultResponseDto createUser(@RequestParam String username) throws Exception {
+        UserResponseDto result = userService.createUser(username);
+        return ResultResponseDto.builder()
+                .message("OK")
+                .statusCode(HttpStatus.OK.value())
+                .data(result)
+                .build();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/user")
+    @Operation(summary = "유저 정보 변경", description = "DB에 유저를 찾아 cardNumber를 변경합니다.")
+    public ResultResponseDto updateUser(@RequestParam(required = false) Integer cardNumber,
+                                        @RequestParam String username) throws NotFoundException {
+        userService.updateUser(cardNumber, username);
+        return ResultResponseDto.builder()
+                .message("OK")
+                .statusCode(HttpStatus.OK.value())
+                .data(null)
+                .build();
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/user")
+    @Operation(summary = "유저 삭제", description = "DB의 user를 삭제합니다.")
+    public ResultResponseDto deleteUser(@RequestParam String username) throws NotFoundException {
+        userService.deleteUser(username);
+        return ResultResponseDto.builder()
+                .message("OK")
+                .statusCode(HttpStatus.OK.value())
+                .data(null)
                 .build();
     }
 
@@ -47,4 +82,5 @@ public class UserController {
                 .data(result)
                 .build();
     }
+
 }
