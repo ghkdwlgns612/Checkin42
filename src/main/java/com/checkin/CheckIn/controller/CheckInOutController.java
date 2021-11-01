@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(origins = {"http://localhost:3000", "http://checkinclone.42cadet.kr/"},
+        allowCredentials = "true")
 public class CheckInOutController {
 
     private final CheckInOutService checkInOutService;
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/user/checkin")
     @Operation(summary = "체크인", description = "체크인 버튼을 클릭 할 경우 카드 정보를 저장합니다.")
     public ResultResponseDto checkIn(@RequestParam Integer cardNumber) {
@@ -33,7 +34,6 @@ public class CheckInOutController {
                 .build();
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/user/checkout")
     @Operation(summary = "체크아웃", description = "체크아웃 할 경우 카드 정보를 null로 변경합니다.")
     public ResultResponseDto checkOut(@RequestParam Integer cardNumber) {

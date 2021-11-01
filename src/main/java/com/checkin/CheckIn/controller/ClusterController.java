@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(origins = {"http://localhost:3000", "http://checkinclone.42cadet.kr/"})
 public class ClusterController {
 
     private final ClusterService clusterService;
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/cluster")
     @Operation(summary = "인원 조회", description = "각 클러스터의 현 인원 및 수용가능 인원을 조회합니다.")
     public ResultResponseDto numberOfPeopleCluster() {
@@ -30,7 +30,8 @@ public class ClusterController {
                 .build();
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://checkinclone.42cadet.kr/"},
+            allowCredentials = "true")
     @PostMapping("/cluster/fix/gaepo")
     @Operation(summary = "개포 최대인원 수정", description = "개포 클러스터의 최대 수용가능 인원을 수정합니다.")
     public Integer fixGaepoMaxPeople(@RequestParam Integer maxGaepo) {
@@ -38,7 +39,8 @@ public class ClusterController {
         return result;
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://checkinclone.42cadet.kr/"},
+            allowCredentials = "true")
     @PostMapping("/cluster/fix/seocho")
     @Operation(summary = "서초 최대인원 수정", description = "서초 클러스터의 최대 수용가능 인원을 수정합니다.")
     public Integer fixSeochoMaxPeople(@RequestParam Integer maxSeocho) {
