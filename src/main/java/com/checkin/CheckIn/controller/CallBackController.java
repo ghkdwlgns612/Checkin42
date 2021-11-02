@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -34,12 +35,19 @@ public class CallBackController {
 
     @GetMapping("/mock-make-token/{username}")
     @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
-    public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response) {
+    public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response, HttpServletRequest request) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username).get()));
+        ResponseCookie responseCookie = ResponseCookie.from("rToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+                .domain("localhost")
+                .secure(true)
+                .sameSite("None")
+                .maxAge(7 * 24 * 60 * 60)
+                .build();
         cookie.setMaxAge(7 * 24 * 60 * 60);
         cookie.setPath("/");
         cookie.setDomain("localhost");
+        response.addHeader("Set-Cookie", responseCookie.toString());
         response.addCookie(cookie);
         Cookie cookie2 = new Cookie("token2", jwtUtils.makeJWT(userMapper.findByName(username).get()));
         cookie2.setMaxAge(7 * 24 * 60 * 60);
