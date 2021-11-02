@@ -40,7 +40,7 @@ public class CallBackController {
         HttpHeaders httpHeaders = new HttpHeaders();
         Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username).get()));
         ResponseCookie responseCookie = ResponseCookie.from("rToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
-                .domain("localhost")
+                .domain("42cadet.kr")
                 .secure(true)
                 .sameSite("None")
                 .maxAge(7 * 24 * 60 * 60)

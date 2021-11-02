@@ -19,3 +19,15 @@ mybatis:
     map-underscore-to-camel-case: true
   type-aliases-package: com.checkin.CheckIn.domain
   mapper-locations: classpath:mapper/*.xml
+
+server:
+  ssl:
+    enabled: true
+    key-alias: mykeysotre
+    key-store: pkcsssl.pkcs12
+    key-password: 11wjdghd
+    key-store-password: 11wjdghd
+    trust-store: mytrust.pkcs12
+    trust-store-password: 11wjdghd
+  port: 8443
+
