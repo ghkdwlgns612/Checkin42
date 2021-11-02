@@ -22,7 +22,8 @@ import java.util.Optional;
 @RestController
 @Slf4j
 @CrossOrigin(origins = {"http://localhost:3000", "http://checkinclone.42cadet.kr/"},
-        allowCredentials = "true")
+        allowCredentials = "true",
+        allowedHeaders = {"Set-Cookie"})
 public class CallBackController {
 
     private final JWTUtils jwtUtils;
