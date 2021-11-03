@@ -14,5 +14,3 @@ spring:
 #    hibernate:
 #      ddl-auto: create-drop
 
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
