@@ -21,15 +21,19 @@ public class Log {
 
     private Integer cardNumber;
 
+    private String type;
+
     private LocalDateTime checkIn;
 
     private LocalDateTime checkOut;
 
     @Builder
-    public Log(String username, Integer cardNumber, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public Log(String username, Integer cardNumber, String type, LocalDateTime checkIn, LocalDateTime checkOut) {
         this.username = username;
         this.cardNumber = cardNumber;
+        this.type = type;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
+
 }
