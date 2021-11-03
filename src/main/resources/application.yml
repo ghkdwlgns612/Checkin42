@@ -1,9 +1,18 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_ID}
-    password: ${MYSQL_PW}
-    url: "jdbc:mysql://localhost:3306/42checkin"
+  user:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL_ID}
+      password: ${MYSQL_PW}
+      jdbc-url: ${MYSQL_URL}
+
+  log:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL_ID}
+      password: ${MYSQL_PW}
+      jdbc-url: ${MYSQL_URL_LOG}
+
   sql:
     init:
       mode: always
