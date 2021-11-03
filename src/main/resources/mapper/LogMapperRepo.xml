@@ -19,7 +19,7 @@
         select * from LOG
     </select>
 
-    <select id="findByName" resultMap="LOG">
+    <select id="findByName" resultMap="Log">
         select * from LOG where username = #{username}
     </select>
 </mapper>
