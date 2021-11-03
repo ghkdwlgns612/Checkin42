@@ -2,20 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.checkin.CheckIn.repository.UserMapper">
+    <resultMap id="User" type="com.checkin.CheckIn.domain.User">
+        <result property="id" column="ID" />
+        <result property="intraId" column="INTRA_ID" />
+        <result property="username" column="USERNAME" />
+        <result property="cardNumber" column="CARD_NUMBER" />
+        <result property="checkIn" column="CHECK_IN" />
+        <result property="checkOut" column="CHECK_OUT" />
+    </resultMap>
+
     <insert id="save">
         insert into USER (intra_id, username, card_number, check_in, check_out)
         values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
     </insert>
 
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultMap="User">
         select * from USER
     </select>
 
-    <select id="findByCardNumberGeapo" resultType="User">
+    <select id="findByCardNumberGeapo" resultMap="User">
         select * from USER where card_number <![CDATA[<=]]> 1000
     </select>
 
-    <select id="findByCardNumberSeocho" resultType="User">
+    <select id="findByCardNumberSeocho" resultMap="User">
         select * from USER where card_number > 1000
     </select>
 
@@ -31,7 +40,7 @@
         select count(*) from USER where card_number > 1000
     </select>
 
-    <select id="findByName" resultType="User">
+    <select id="findByName" resultMap="User">
         select * from USER where username = #{username}
     </select>
 
