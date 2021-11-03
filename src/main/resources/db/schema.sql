@@ -5,6 +5,6 @@ CREATE TABLE USER (
                       intra_id        BIGINT          NOT NULL,
                       username        VARCHAR(255)    NOT NULL,
                       card_number     INTEGER        UNIQUE,
-                      check_in        DATETIME        ,
+                      check_in        DATETIME        DEFAULT NOW(),
                       check_out       DATETIME
 );

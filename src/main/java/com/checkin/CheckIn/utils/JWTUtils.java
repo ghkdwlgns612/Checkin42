@@ -1,6 +1,7 @@
 package com.checkin.CheckIn.utils;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class JWTUtils {
                 ;
     }
 
-    public void verifyJWT(String token) {
-        JWT.require(yamlSecurityResource.getAlgorithm()).build().verify(token);
+    public DecodedJWT verifyJWT(String token) {
+        return JWT.require(yamlSecurityResource.getAlgorithm()).build().verify(token);
     }
 }

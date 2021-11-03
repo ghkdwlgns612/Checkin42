@@ -27,5 +27,9 @@ public interface UserMapper {
 
     void updateByCardNumber(Integer cardNumber, String username);
 
+    void updateCheckInByCardNumber(Integer cardNumber, String username);
+
+    void updateCheckOutByCardNumber(Integer cardNumber, String username);
+
     void deleteByName(String username);
 }

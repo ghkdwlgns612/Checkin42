@@ -45,7 +45,25 @@ public class UserService {
         User user = User.builder()
                 .username(username)
                 .checkIn(LocalDateTime.now())
-                .cardNumber(0)
+                .cardNumber(null)
+                .intraId(86212L)
+                .build();
+        if (!userMapper.findByName(username).isEmpty())
+            throw new DuplicateMemberException("이미 존재하는 회원입니다.");
+        userMapper.save(user);
+        return UserResponseDto.builder()
+                .userId(user.getUsername())
+                .cardNumber(user.getCardNumber())
+                .userCursus("42 Cursus")
+                .build();
+    }
+
+    @Transactional
+    public UserResponseDto createUser(Integer cardNumber, String username) throws DuplicateMemberException {
+        User user = User.builder()
+                .username(username)
+                .checkIn(LocalDateTime.now())
+                .cardNumber(cardNumber)
                 .intraId(86212L)
                 .build();
         if (!userMapper.findByName(username).isEmpty())
