@@ -1,7 +1,7 @@
 package com.checkin.CheckIn.clustertest;
 
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.repository.UserMapper;
+import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.service.ClusterService;
 import com.checkin.CheckIn.service.dto.NumberOfPeopleDto;
 import lombok.extern.slf4j.Slf4j;

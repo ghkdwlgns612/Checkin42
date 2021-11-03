@@ -1,7 +1,6 @@
 package com.checkin.CheckIn.usertest;
 
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.repository.UserMapper;
 import com.checkin.CheckIn.service.UserService;
 import com.checkin.CheckIn.service.dto.UserResponseDto;
 import javassist.NotFoundException;

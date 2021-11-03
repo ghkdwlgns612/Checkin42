@@ -2,12 +2,10 @@ package com.checkin.CheckIn;
 
 import com.checkin.CheckIn.domain.enumeration.Location;
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.repository.UserMapper;
-import com.checkin.CheckIn.repository.emergency.UserRepository;
+import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.service.LogService;
 import com.checkin.CheckIn.service.dto.LocationDto;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

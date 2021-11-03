@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.repository;
+package com.checkin.CheckIn.repository.usermapper;
 
 import com.checkin.CheckIn.domain.User;
 import org.apache.ibatis.annotations.Mapper;
