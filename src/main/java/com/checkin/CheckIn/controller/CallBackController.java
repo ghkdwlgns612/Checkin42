@@ -1,5 +1,7 @@
 package com.checkin.CheckIn.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.checkin.CheckIn.domain.ResultResponseDto;
 import com.checkin.CheckIn.repository.UserMapper;
 import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
@@ -37,27 +39,41 @@ public class CallBackController {
     @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
     public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response, HttpServletRequest request) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username).get()));
         if (userMapper.findByName(username).isPresent()) {
-            ResponseCookie responseCookie = ResponseCookie.from("rToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+            Cookie cookie = new Cookie("basictoken", jwtUtils.makeJWT(userMapper.findByName(username).get()));
+            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setPath("/");
+            cookie.setDomain("42cadet.kr");
+            Cookie cookie1 = new Cookie("localtoken", jwtUtils.makeJWT(userMapper.findByName(username).get()));
+            cookie1.setMaxAge(7 * 24 * 60 * 60);
+            cookie1.setPath("/");
+            cookie1.setDomain("localhost");
+            response.addCookie(cookie);
+            response.addCookie(cookie1);
+            ResponseCookie responseCookie = ResponseCookie.from("httpsNoneToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
                     .domain("42cadet.kr")
                     .secure(true)
                     .sameSite("None")
                     .maxAge(7 * 24 * 60 * 60)
                     .build();
-            cookie.setMaxAge(7 * 24 * 60 * 60);
-            cookie.setPath("/");
-            cookie.setDomain("42cadet.kr");
+            ResponseCookie responseCookie1 = ResponseCookie.from("httpsLaxToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+                    .domain("42cadet.kr")
+                    .secure(true)
+                    .sameSite("Lax")
+                    .maxAge(7 * 24 * 60 * 60)
+                    .build();
+            ResponseCookie responseCookie2 = ResponseCookie.from("httpsStrictToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+                    .domain("42cadet.kr")
+                    .secure(true)
+                    .sameSite("Strict")
+                    .maxAge(7 * 24 * 60 * 60)
+                    .build();
             response.addHeader("Set-Cookie", responseCookie.toString());
-            response.addCookie(cookie);
-            Cookie cookie2 = new Cookie("token2", jwtUtils.makeJWT(userMapper.findByName(username).get()));
-            cookie2.setMaxAge(7 * 24 * 60 * 60);
-            cookie2.setPath("/");
-            cookie2.setDomain("42cadet.kr");
-            response.addCookie(cookie2);
+            response.addHeader("Set-Cookie", responseCookie1.toString());
+            response.addHeader("Set-Cookie", responseCookie2.toString());
             return ResultResponseDto.<String>builder()
                     .statusCode(HttpStatus.OK.value())
-                    .message("cookie Setting")
+                    .message("4 option cookie Setting")
                     .data(username + "'s token use https://www.base64decode.org/")
                     .build();
         } else {
@@ -75,8 +91,10 @@ public class CallBackController {
         try {
             Cookie[] cookies = request.getCookies();
             Optional<Cookie> token = Arrays.stream(cookies).findFirst().filter((cookie) -> cookie.getName().equals("token"));
+            Cookie cookie;
             try {
-                token.ifPresent(cookie -> jwtUtils.verifyJWT(cookie.getValue()));
+                cookie = token.orElseThrow();
+                jwtUtils.verifyJWT(cookie.getValue());
             } catch (Exception e) {
                 return ResultResponseDto.<String>builder()
                         .statusCode(HttpStatus.UNAUTHORIZED.value())
@@ -84,11 +102,20 @@ public class CallBackController {
                         .data("Where is my cookie")
                         .build();
             }
-            return ResultResponseDto.<String>builder()
+            DecodedJWT decode = JWT.decode(cookie.getValue());
+            String name = decode.getClaim("name").asString();
+            if (name.equals(username))
+                return ResultResponseDto.<String>builder()
                     .statusCode(HttpStatus.OK.value())
                     .message(null)
                     .data("You get the real Cookie")
                     .build();
+            else
+                return ResultResponseDto.<String>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("username not matched")
+                        .data(null)
+                        .build();
         } catch (Exception e) {
             return ResultResponseDto.<String>builder()
                     .statusCode(HttpStatus.UNAUTHORIZED.value())
