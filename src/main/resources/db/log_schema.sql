@@ -5,6 +5,7 @@ CREATE TABLE LOG (
                      username    VARCHAR(255) NOT NULL,
                      card_number INTEGER UNIQUE,
                      type        VARCHAR(255) NOT NULL,
+                     location    VARCHAR(255) NOT NULL,
                      check_in        DATETIME,
                      check_out       DATETIME
 );
