@@ -38,27 +38,35 @@ public class CallBackController {
     public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response, HttpServletRequest request) {
         HttpHeaders httpHeaders = new HttpHeaders();
         Cookie cookie = new Cookie("token", jwtUtils.makeJWT(userMapper.findByName(username).get()));
-        ResponseCookie responseCookie = ResponseCookie.from("rToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
-                .domain("localhost")
-                .secure(true)
-                .sameSite("None")
-                .maxAge(7 * 24 * 60 * 60)
-                .build();
-        cookie.setMaxAge(7 * 24 * 60 * 60);
-        cookie.setPath("/");
-        cookie.setDomain("localhost");
-        response.addHeader("Set-Cookie", responseCookie.toString());
-        response.addCookie(cookie);
-        Cookie cookie2 = new Cookie("token2", jwtUtils.makeJWT(userMapper.findByName(username).get()));
-        cookie2.setMaxAge(7 * 24 * 60 * 60);
-        cookie2.setPath("/");
-        cookie2.setDomain("42cadet.kr");
-        response.addCookie(cookie2);
-        return ResultResponseDto.<String>builder()
-                .statusCode(HttpStatus.OK.value())
-                .message("cookie Setting")
-                .data(username + "'s token use https://www.base64decode.org/")
-                .build();
+        if (userMapper.findByName(username).isPresent()) {
+            ResponseCookie responseCookie = ResponseCookie.from("rToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+                    .domain("42cadet.kr")
+                    .secure(true)
+                    .sameSite("None")
+                    .maxAge(7 * 24 * 60 * 60)
+                    .build();
+            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setPath("/");
+            cookie.setDomain("42cadet.kr");
+            response.addHeader("Set-Cookie", responseCookie.toString());
+            response.addCookie(cookie);
+            Cookie cookie2 = new Cookie("token2", jwtUtils.makeJWT(userMapper.findByName(username).get()));
+            cookie2.setMaxAge(7 * 24 * 60 * 60);
+            cookie2.setPath("/");
+            cookie2.setDomain("42cadet.kr");
+            response.addCookie(cookie2);
+            return ResultResponseDto.<String>builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message("cookie Setting")
+                    .data(username + "'s token use https://www.base64decode.org/")
+                    .build();
+        } else {
+            return ResultResponseDto.<String>builder()
+                    .statusCode(HttpStatus.BAD_REQUEST.value())
+                    .message("No such user exists")
+                    .data(null)
+                    .build();
+        }
     }
 
     @GetMapping("/mock-verfiy-token/{username}")
@@ -68,7 +76,7 @@ public class CallBackController {
             Cookie[] cookies = request.getCookies();
             Optional<Cookie> token = Arrays.stream(cookies).findFirst().filter((cookie) -> cookie.getName().equals("token"));
             try {
-                jwtUtils.verifyJWT(token.get().getValue());
+                token.ifPresent(cookie -> jwtUtils.verifyJWT(cookie.getValue()));
             } catch (Exception e) {
                 return ResultResponseDto.<String>builder()
                         .statusCode(HttpStatus.UNAUTHORIZED.value())
