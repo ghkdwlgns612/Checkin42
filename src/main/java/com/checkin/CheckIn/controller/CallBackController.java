@@ -1,8 +1,7 @@
 package com.checkin.CheckIn.controller;
 
 import com.checkin.CheckIn.domain.ResultResponseDto;
-import com.checkin.CheckIn.repository.UserMapper;
-import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.utils.JWTUtils;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;

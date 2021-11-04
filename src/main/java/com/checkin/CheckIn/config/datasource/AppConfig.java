@@ -1,4 +1,4 @@
-package com.checkin.CheckIn.config;
+package com.checkin.CheckIn.config.datasource;
 
 import org.springframework.context.annotation.Configuration;
 

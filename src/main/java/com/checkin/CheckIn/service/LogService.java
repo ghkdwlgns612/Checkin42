@@ -2,11 +2,9 @@ package com.checkin.CheckIn.service;
 
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.domain.enumeration.Location;
-import com.checkin.CheckIn.repository.UserMapper;
+import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.service.dto.LocationDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,7 +1,7 @@
 package com.checkin.CheckIn.service;
 
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.repository.UserMapper;
+import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.service.dto.UserResponseDto;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
