@@ -7,13 +7,14 @@
         <result property="username" column="USERNAME" />
         <result property="cardNumber" column="CARD_NUMBER" />
         <result property="type" column="type" />
+        <result property="location" column="LOCATION" />
         <result property="checkIn" column="CHECK_IN" />
         <result property="checkOut" column="CHECK_OUT" />
     </resultMap>
 
     <insert id="save">
-        insert into LOG (username, card_number, type, check_in, check_out)
-        values (#{username}, #{cardNumber}, #{type}, #{checkIn}, #{checkOut})
+        insert into LOG (username, card_number, type, location, check_in, check_out)
+        values (#{username}, #{cardNumber}, #{type}, #{location}, #{checkIn}, #{checkOut})
     </insert>
 
     <select id="findAll" resultMap="Log">
@@ -22,5 +23,13 @@
 
     <select id="findByName" resultMap="Log">
         select * from LOG where username = #{username}
+    </select>
+
+    <select id="findAllGaepo" resultMap="Log">
+        select * from LOG where card_number <![CDATA[<]]> 1000
+    </select>
+
+    <select id="findAllSeocho" resultMap="Log">
+        select * from LOG where card_number >= 1000
     </select>
 </mapper>

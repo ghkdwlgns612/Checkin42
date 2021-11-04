@@ -13,5 +13,9 @@ public interface LogMapper {
     Optional<Log> findByName(String username);
 
     List<Log> findAll();
+
+    List<Log> findAllGaepo();
+
+    List<Log> findAllSeocho();
 }
 
