@@ -12,9 +12,14 @@
         <result property="checkOut" column="CHECK_OUT" />
     </resultMap>
 
-    <insert id="save">
+    <insert id="saveCheckIn">
         insert into LOG (username, card_number, type, location, check_in, check_out)
         values (#{username}, #{cardNumber}, #{type}, #{location}, #{checkIn}, #{checkOut})
+    </insert>
+
+    <insert id="saveCheckOut">
+        insert into LOG (username, card_number, type, location, check_in, check_out)
+        values (#{username}, #{cardNumber}, #{type}, #{location}, #{checkIn}, NOW())
     </insert>
 
     <select id="findAll" resultMap="Log">
@@ -31,5 +36,9 @@
 
     <select id="findAllSeocho" resultMap="Log">
         select * from LOG where card_number >= 1000
+    </select>
+
+    <select id="findLastLog" resultMap="Log">
+        select * from LOG order by id desc limit 1
     </select>
 </mapper>

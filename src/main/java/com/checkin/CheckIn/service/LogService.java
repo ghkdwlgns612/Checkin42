@@ -24,12 +24,12 @@ public class LogService {
 
     @Transactional
     public void checkInLog(User user) {
-        String location = "";
+        String location;
         if (user.getCardNumber() >= 1000)
             location = "SEOCHO";
         else
             location = "GAEPO";
-        logMapper.save(Log.builder()
+        logMapper.saveCheckIn(Log.builder()
                 .cardNumber(user.getCardNumber())
                 .username(user.getUsername())
                 .type("CHECKIN")
@@ -41,12 +41,12 @@ public class LogService {
 
     @Transactional
     public void checkOutLog(User user) {
-        String location = "";
+        String location;
         if (user.getCardNumber() >= 1000)
             location = "SEOCHO";
         else
             location = "GAEPO";
-        logMapper.save(Log.builder()
+        logMapper.saveCheckOut(Log.builder()
                 .cardNumber(user.getCardNumber())
                 .username(user.getUsername())
                 .type("CHECKOUT")
@@ -66,5 +66,10 @@ public class LogService {
     public List<Log> seochoLog(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return logMapper.findAllSeocho();
+    }
+
+    @Transactional
+    public Log lastLog() {
+        return logMapper.findLastLog();
     }
 }

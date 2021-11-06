@@ -8,7 +8,9 @@ import java.util.Optional;
 
 @Mapper
 public interface LogMapper {
-    void save(Log log);
+    void saveCheckIn(Log log);
+
+    void saveCheckOut(Log log);
 
     Optional<Log> findByName(String username);
 
@@ -17,5 +19,7 @@ public interface LogMapper {
     List<Log> findAllGaepo();
 
     List<Log> findAllSeocho();
+
+    Log findLastLog();
 }
 
