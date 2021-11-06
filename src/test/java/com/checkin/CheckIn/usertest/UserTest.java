@@ -8,6 +8,7 @@ import javassist.bytecode.DuplicateMemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -33,7 +34,7 @@ public class UserTest {
                 .intraId(86991L)
                 .checkIn(LocalDateTime.of(2021,10,1,13,0))
                 .checkOut(LocalDateTime.of(2021,10,1,20,0))
-                .cardNumber(13)
+                .cardNumber(null)
                 .build();
 
         gpark = User.builder()
@@ -41,7 +42,7 @@ public class UserTest {
                 .intraId(86973L)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0))
                 .checkOut(LocalDateTime.of(2021,10,1,12,0))
-                .cardNumber(12)
+                .cardNumber(null)
                 .build();
     }
 
@@ -66,7 +67,6 @@ public class UserTest {
         UserResponseDto result = userService.userInfoService("jihuhwan");
 
         Assertions.assertNotEquals(username,result.getUserId());
-        Assertions.assertNotEquals(cardNumber, result.getCardNumber());
     }
 
     @Test
@@ -82,11 +82,9 @@ public class UserTest {
 
     @Test
     @DisplayName("DB에 새로운 유저를 생성할 때 유저가 중복되는지 확인하는 테스트")
-    public void createDuplicateUser() throws NotFoundException, DuplicateMemberException {
+    public void createDuplicateUser() {
         String name = "gpark";
-        Assertions.assertThrows(DuplicateMemberException.class, () -> {
-            userService.createUser(name);
-        });
+        Assertions.assertThrows(DuplicateMemberException.class, () -> userService.createUser(name));
     }
 
     @Test
@@ -103,12 +101,10 @@ public class UserTest {
 
     @Test
     @DisplayName("DB에 존재하는 유저를 삭제할 때 삭제가 잘 되었는지 확인하는 테스트")
-    public void deleteUser() throws DuplicateMemberException, NotFoundException {
+    public void deleteUser() throws NotFoundException {
         String name =  "minjupar100";
         userService.deleteUser(name);
 
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            userService.userInfoService(name);
-        });
+        Assertions.assertThrows(NotFoundException.class, () -> userService.userInfoService(name));
     }
 }
