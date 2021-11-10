@@ -1,12 +1,12 @@
 package com.checkin.CheckIn;
 
-import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.utils.resource.JWTSecurityResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(YAMLSecurityResource.class)
+@EnableConfigurationProperties({JWTSecurityResource.class})
 public class Application {
 
 	public static void main(String[] args) {
