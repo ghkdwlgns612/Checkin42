@@ -36,40 +36,16 @@ public class CallBackController {
 
     @GetMapping("/mock-make-token/{username}")
     @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
-    public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response, HttpServletRequest request) {
-        HttpHeaders httpHeaders = new HttpHeaders();
+    public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response) {
         if (userMapper.findByName(username).isPresent()) {
-            Cookie cookie = new Cookie("basictoken", jwtUtils.makeJWT(userMapper.findByName(username).get()));
-            cookie.setMaxAge(7 * 24 * 60 * 60);
-            cookie.setPath("/");
-            cookie.setDomain("42cadet.kr");
-            Cookie cookie1 = new Cookie("localtoken", jwtUtils.makeJWT(userMapper.findByName(username).get()));
-            cookie1.setMaxAge(7 * 24 * 60 * 60);
-            cookie1.setPath("/");
-            cookie1.setDomain("localhost");
-            response.addCookie(cookie);
-            response.addCookie(cookie1);
-            ResponseCookie responseCookie = ResponseCookie.from("httpsNoneToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
+            ResponseCookie responseCookie1 = ResponseCookie.from("token", jwtUtils.makeJWT(userMapper.findByName(username).get()))
                     .domain("42cadet.kr")
-                    .secure(true)
-                    .sameSite("None")
-                    .maxAge(7 * 24 * 60 * 60)
-                    .build();
-            ResponseCookie responseCookie1 = ResponseCookie.from("httpsLaxToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
-                    .domain("42cadet.kr")
-                    .secure(true)
                     .sameSite("Lax")
+                    .path("/")
+                    .httpOnly(true)
                     .maxAge(7 * 24 * 60 * 60)
                     .build();
-            ResponseCookie responseCookie2 = ResponseCookie.from("httpsStrictToken", jwtUtils.makeJWT(userMapper.findByName(username).get()))
-                    .domain("42cadet.kr")
-                    .secure(true)
-                    .sameSite("Strict")
-                    .maxAge(7 * 24 * 60 * 60)
-                    .build();
-            response.addHeader("Set-Cookie", responseCookie.toString());
-            response.addHeader("Set-Cookie", responseCookie1.toString());
-            response.addHeader("Set-Cookie", responseCookie2.toString());
+            response.setHeader(HttpHeaders.SET_COOKIE, responseCookie1.toString());
             return ResultResponseDto.<String>builder()
                     .statusCode(HttpStatus.OK.value())
                     .message("4 option cookie Setting")
