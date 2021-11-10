@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.checkin.CheckIn.domain.User;
-import com.checkin.CheckIn.utils.resource.YAMLSecurityResource;
+import com.checkin.CheckIn.utils.resource.JWTSecurityResource;
 import com.checkin.CheckIn.utils.JWTUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class JWTTest {
     private static Algorithm ALGORITHM = Algorithm.HMAC256("gpark");
 
     @Autowired
-    private YAMLSecurityResource yamlSecurityResource;
+    private JWTSecurityResource JWTSecurityResource;
 
     @Autowired
     private JWTUtils jwtUtils;
@@ -47,10 +47,10 @@ public class JWTTest {
         String token = JWT.create()
                 .withClaim("exp", Instant.now().getEpochSecond() + 1)
                 .withClaim("name", "gpark")
-                .sign(yamlSecurityResource.getAlgorithm())
+                .sign(JWTSecurityResource.getAlgorithm())
                 ;
         Thread.sleep(2000);
-        assertThrows(TokenExpiredException.class, () -> JWT.require(yamlSecurityResource.getAlgorithm()).build().verify(token));
+        assertThrows(TokenExpiredException.class, () -> JWT.require(JWTSecurityResource.getAlgorithm()).build().verify(token));
     }
 
     @DisplayName("3. Given gpark JWT, then validate failure by Different exp claim")
