@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 @Getter
 public class UserResponseDto {
 
-    private String userId;
+    private String username;
     private String userCursus;
     private Integer cardNumber;
     private LocalDateTime createdAt;
 
     @Builder
-    public UserResponseDto(String userId, String userCursus, Integer cardNumber, LocalDateTime createdAt) {
-        this.userId = userId;
+    public UserResponseDto(String username, String userCursus, Integer cardNumber, LocalDateTime createdAt) {
+        this.username = username;
         this.userCursus = userCursus;
         this.cardNumber = cardNumber;
         this.createdAt = createdAt;

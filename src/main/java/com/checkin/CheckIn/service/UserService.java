@@ -30,14 +30,13 @@ public class UserService {
                 .userCursus("42 Cursus") //Oauth필요.
                 .createdAt(result.get().getCreated())
                 .cardNumber(result.get().getCardNumber())
-                .userId(result.get().getUsername())
+                .username(result.get().getUsername())
                 .build();
     }
 
     @Transactional
     public List<User> allUserInfo() {
-        List<User> users = userMapper.findAll();
-        return users;
+        return userMapper.findAll();
     }
 
     @Transactional
@@ -48,11 +47,11 @@ public class UserService {
                 .cardNumber(null)
                 .intraId(86212L)
                 .build();
-        if (!userMapper.findByName(username).isEmpty())
+        if (userMapper.findByName(username).isPresent())
             throw new DuplicateMemberException("이미 존재하는 회원입니다.");
         userMapper.save(user);
         return UserResponseDto.builder()
-                .userId(user.getUsername())
+                .username(user.getUsername())
                 .cardNumber(user.getCardNumber())
                 .userCursus("42 Cursus")
                 .build();
@@ -66,11 +65,11 @@ public class UserService {
                 .cardNumber(cardNumber)
                 .intraId(86212L)
                 .build();
-        if (!userMapper.findByName(username).isEmpty())
+        if (userMapper.findByName(username).isPresent())
             throw new DuplicateMemberException("이미 존재하는 회원입니다.");
         userMapper.save(user);
         return UserResponseDto.builder()
-                .userId(user.getUsername())
+                .username(user.getUsername())
                 .cardNumber(user.getCardNumber())
                 .userCursus("42 Cursus")
                 .build();
