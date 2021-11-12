@@ -1,9 +1,11 @@
 package com.checkin.CheckIn.controller;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.checkin.CheckIn.domain.ResultResponseDto;
 import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.service.UserService;
 import com.checkin.CheckIn.service.dto.UserResponseDto;
+import com.checkin.CheckIn.utils.JWTUtils;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import javassist.NotFoundException;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import java.util.List;
 
 @Api
@@ -23,11 +26,24 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final JWTUtils jwtUtils;
 
     @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
+    public ResultResponseDto<Object> userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
         UserResponseDto result = userService.userInfoService(username);
+        return ResultResponseDto.builder()
+                .message("OK")
+                .statusCode(HttpStatus.OK.value())
+                .data(result)
+                .build();
+    }
+
+    @GetMapping("/user/token")
+    @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
+    public ResultResponseDto<Object> userInfo(@CookieValue(value = "token") Cookie cookie) throws NotFoundException {
+        DecodedJWT decodedJWT = jwtUtils.verifyJWT(cookie.getValue());
+        UserResponseDto result = userService.userInfoService(decodedJWT.getClaim("name").asString());
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
@@ -37,7 +53,7 @@ public class UserController {
 
     @PostMapping("/user")
     @Operation(summary = "유저 등록", description = "DB에 유저를 등록합니다.")
-    public ResultResponseDto createUser(@RequestParam String username) throws Exception {
+    public ResultResponseDto<Object> createUser(@RequestParam String username) throws Exception {
         UserResponseDto result = userService.createUser(username);
         return ResultResponseDto.builder()
                 .message("OK")
@@ -48,7 +64,7 @@ public class UserController {
 
     @PutMapping("/user")
     @Operation(summary = "유저 정보 변경", description = "DB에 유저를 찾아 cardNumber를 변경합니다.")
-    public ResultResponseDto updateUser(@RequestParam(required = false) Integer cardNumber,
+    public ResultResponseDto<Object> updateUser(@RequestParam(required = false) Integer cardNumber,
                                         @RequestParam String username) throws NotFoundException {
         userService.updateUser(cardNumber, username);
         return ResultResponseDto.builder()
@@ -60,7 +76,7 @@ public class UserController {
 
     @DeleteMapping("/user")
     @Operation(summary = "유저 삭제", description = "DB의 user를 삭제합니다.")
-    public ResultResponseDto deleteUser(@RequestParam String username) throws NotFoundException {
+    public ResultResponseDto<Object> deleteUser(@RequestParam String username) throws NotFoundException {
         userService.deleteUser(username);
         return ResultResponseDto.builder()
                 .message("OK")
@@ -71,7 +87,7 @@ public class UserController {
 
     @GetMapping("/user/all")
     @Operation(summary = "모든 유저 조회", description = "DB내의 모든 유저의 정보를 조회합니다.")
-    public ResultResponseDto allUserInfo() {
+    public ResultResponseDto<Object> allUserInfo() {
         List<User> result = userService.allUserInfo();
         return ResultResponseDto.builder()
                 .message("OK")

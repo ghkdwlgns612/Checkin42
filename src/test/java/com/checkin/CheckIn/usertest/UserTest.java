@@ -54,7 +54,7 @@ public class UserTest {
 
         UserResponseDto result = userService.userInfoService("jihuhwan");
 
-        Assertions.assertEquals(username, result.getUserId());
+        Assertions.assertEquals(username, result.getUsername());
         Assertions.assertEquals(cardNumber, result.getCardNumber());
     }
 
@@ -66,7 +66,7 @@ public class UserTest {
 
         UserResponseDto result = userService.userInfoService("jihuhwan");
 
-        Assertions.assertNotEquals(username,result.getUserId());
+        Assertions.assertNotEquals(username,result.getUsername());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class UserTest {
 
         UserResponseDto select_result = userService.userInfoService(name);
 
-        Assertions.assertEquals(create_result.getUserId(), select_result.getUserId());
+        Assertions.assertEquals(create_result.getUsername(), select_result.getUsername());
     }
 
     @Test
