@@ -1,2 +1,6 @@
 jwt:
   secret: ${JWT_SECRET}
+42:
+  clientId: ${CLIENT_ID}
+  clientSecret: ${CLIENT_PW}
+  redirectUri: "http://localhost:80/login/callback/42"
