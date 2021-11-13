@@ -8,7 +8,6 @@ import javassist.bytecode.DuplicateMemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -52,7 +51,7 @@ public class UserTest {
         String username = jihuhwan.getUsername();
         Integer cardNumber = jihuhwan.getCardNumber();
 
-        UserResponseDto result = userService.userInfoService("jihuhwan");
+        UserResponseDto result = userService.userStatusService("jihuhwan");
 
         Assertions.assertEquals(username, result.getUsername());
         Assertions.assertEquals(cardNumber, result.getCardNumber());
@@ -64,7 +63,7 @@ public class UserTest {
         String username = gpark.getUsername();
         Integer cardNumber = gpark.getCardNumber();
 
-        UserResponseDto result = userService.userInfoService("jihuhwan");
+        UserResponseDto result = userService.userStatusService("jihuhwan");
 
         Assertions.assertNotEquals(username,result.getUsername());
     }
@@ -75,7 +74,7 @@ public class UserTest {
         String name =  "minjupar100";
         UserResponseDto create_result = userService.createUser(name);
 
-        UserResponseDto select_result = userService.userInfoService(name);
+        UserResponseDto select_result = userService.userStatusService(name);
 
         Assertions.assertEquals(create_result.getUsername(), select_result.getUsername());
     }
@@ -94,7 +93,7 @@ public class UserTest {
         String username = "jihuhwan";
         userService.updateUser(cardNumber,username);
 
-        UserResponseDto result = userService.userInfoService(username);
+        UserResponseDto result = userService.userStatusService(username);
 
         Assertions.assertEquals(cardNumber, result.getCardNumber());
     }
@@ -105,6 +104,6 @@ public class UserTest {
         String name =  "minjupar100";
         userService.deleteUser(name);
 
-        Assertions.assertThrows(NotFoundException.class, () -> userService.userInfoService(name));
+        Assertions.assertThrows(NotFoundException.class, () -> userService.userStatusService(name));
     }
 }

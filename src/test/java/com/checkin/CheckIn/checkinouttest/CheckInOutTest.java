@@ -45,7 +45,7 @@ public class CheckInOutTest {
     public void checkInTestByCreateUser() throws DuplicateMemberException, NotFoundException {
         checkInOutService.checkInService(testUser.getUsername(), testUser.getCardNumber());
 
-        UserResponseDto responseDto = userService.userInfoService(testUser.getUsername());
+        UserResponseDto responseDto = userService.userStatusService(testUser.getUsername());
 
         Assertions.assertEquals(responseDto.getCardNumber(), testUser.getCardNumber());
     }
@@ -54,13 +54,13 @@ public class CheckInOutTest {
     @DisplayName("클러스터 입장이 한 번 이상인 교욱생이 출입할 때 DB에 해당 교육생 정보를 잘 업데이트 하는지 확인하는 테스트")
     public void checkInTestByUpdateUser() throws DuplicateMemberException, NotFoundException {
         int cardNumber = 150;
-        UserResponseDto responseDto1 = userService.userInfoService("jihuhwan");
+        UserResponseDto responseDto1 = userService.userStatusService("jihuhwan");
 
         Assertions.assertNotEquals(cardNumber,responseDto1.getCardNumber());
 
         checkInOutService.checkInService("jihuhwan",cardNumber);
 
-        UserResponseDto responseDto2 = userService.userInfoService("jihuhwan");
+        UserResponseDto responseDto2 = userService.userStatusService("jihuhwan");
 
         Assertions.assertEquals(responseDto2.getCardNumber(), cardNumber);
     }

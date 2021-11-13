@@ -39,7 +39,7 @@ public class UserController {
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("There is no cookie named token in request"));
         DecodedJWT decodedJWT = jwtUtils.verifyJWT(token.getValue());
-        UserResponseDto userResponseDto = userService.userInfoService(decodedJWT.getClaim("name").asString());
+        UserResponseDto userResponseDto = userService.userStatusService(decodedJWT.getClaim("name").asString());
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
@@ -50,7 +50,7 @@ public class UserController {
     @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
     public ResultResponseDto<Object> userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
-        UserResponseDto result = userService.userInfoService(username);
+        UserResponseDto result = userService.userStatusService(username);
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())

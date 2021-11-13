@@ -42,5 +42,9 @@ public class User extends BaseTime {
     public void setUserKey(Number key) {
         this.id = (Long) key;
     }
+
+    public String getImageUrl() {
+        return "https://cdn.intra.42.fr/users/" + username + ".jpg";
+    }
 }
 
