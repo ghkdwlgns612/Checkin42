@@ -1,6 +1,5 @@
 package com.checkin.CheckIn.config;
 
-import com.checkin.CheckIn.service.OAuth42UserService;
 import com.checkin.CheckIn.utils.resource.CustomOAuth2Provider;
 import com.checkin.CheckIn.utils.resource.OAuth42Resource;
 import org.springframework.context.annotation.Bean;
@@ -31,11 +30,9 @@ import static org.springframework.security.oauth2.core.AuthorizationGrantType.AU
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth42Resource oAuth42Resource;
-    private final OAuth42UserService oAuth42UserService;
 
-    public SecurityConfig(OAuth42Resource oAuth42Resource, OAuth42UserService oAuth42UserService) {
+    public SecurityConfig(OAuth42Resource oAuth42Resource) {
         this.oAuth42Resource = oAuth42Resource;
-        this.oAuth42UserService = oAuth42UserService;
     }
 
     @Override
