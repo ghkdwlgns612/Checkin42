@@ -58,18 +58,6 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/user/token")
-    @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto<Object> userInfo(@CookieValue(value = "token") Cookie cookie) throws NotFoundException {
-        DecodedJWT decodedJWT = jwtUtils.verifyJWT(cookie.getValue());
-        UserResponseDto result = userService.userInfoService(decodedJWT.getClaim("name").asString());
-        return ResultResponseDto.builder()
-                .message("OK")
-                .statusCode(HttpStatus.OK.value())
-                .data(result)
-                .build();
-    }
-
     @PostMapping("/user")
     @Operation(summary = "유저 등록", description = "DB에 유저를 등록합니다.")
     public ResultResponseDto<Object> createUser(@RequestParam String username) throws Exception {
