@@ -35,56 +35,56 @@ public class ClusterTest {
     private void addUsers() {
         users.add(User.builder()
                 .username("gpark")
-                .cardNumber(12)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,12,0,0))
                 .intraId(86973L)
                 .build());
         users.add(User.builder()
                 .username("jihuhwan")
-                .cardNumber(13)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,13,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,20,0,0))
                 .intraId(86991L)
                 .build());
         users.add(User.builder()
                 .username("yunjung")
-                .cardNumber(14)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,10,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,23,59,59))
                 .intraId(86993L)
                 .build());
         users.add(User.builder()
                 .username("minjupar")
-                .cardNumber(15)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,22,0,0))
                 .intraId(86982L)
                 .build());
         users.add(User.builder()
                 .username("gpark1")
-                .cardNumber(1012)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,12,0,0))
                 .intraId(86111L)
                 .build());
         users.add(User.builder()
                 .username("jihuhwan1")
-                .cardNumber(1013)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,13,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,20,0,0))
                 .intraId(86222L)
                 .build());
         users.add(User.builder()
                 .username("yunjung1")
-                .cardNumber(1014)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,10,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,23,59,59))
                 .intraId(86333L)
                 .build());
         users.add(User.builder()
                 .username("minjupar1")
-                .cardNumber(1015)
+                .cardNumber(null)
                 .checkIn(LocalDateTime.of(2021,10,1,9,0,0))
                 .checkOut(LocalDateTime.of(2021,10,1,22,0,0))
                 .intraId(86444L)
@@ -94,8 +94,8 @@ public class ClusterTest {
     @Test
     @DisplayName("DB에 사용자들이 있을 때 서비스 로직을 실행하면 개포, 서초 인원이 맞는지 확인하는 테스트")
     public void peopleGaepoSeocho() {
-        Integer seochoSize = 4;
-        Integer gaepoSize = 4;
+        Integer seochoSize = 0;
+        Integer gaepoSize = 0;
 
         NumberOfPeopleDto result = clusterService.countNumberOfPeopleCluster();
 
@@ -106,7 +106,7 @@ public class ClusterTest {
     @Test
     @DisplayName("DB에 사용자들이 있을 때 레포지토리 로직을 실행하면 서초 인원이 맞는지 확인하는 테스트")
     public void peopleSeocho() {
-        Integer seochoSize = 4;
+        Integer seochoSize = 0;
 
         Integer result = userMapper.countSeochoPeople();
 
@@ -116,7 +116,7 @@ public class ClusterTest {
     @Test
     @DisplayName("DB에 사용자들이 있을 때 레포지토리 로직을 실행하면 개포 인원이 맞는지 확인하는 테스트")
     public void peopleGaepo() {
-        Integer gaepoSize = 4;
+        Integer gaepoSize = 0;
 
         Integer result = userMapper.countGaepoPeople();
 
