@@ -18,6 +18,8 @@ spring:
       mode: always
       schema-locations: classpath*:db/schema.sql
       data-locations: classpath*:db/data.sql
+  profiles:
+    include: security
 #  jpa:
 #    show-sql: true
 #    hibernate:
