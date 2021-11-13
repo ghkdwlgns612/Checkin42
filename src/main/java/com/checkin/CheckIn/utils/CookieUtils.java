@@ -22,7 +22,7 @@ public class CookieUtils {
                 .domain("42cadet.kr")
                 .sameSite("Lax")
                 .path("/")
-                .httpOnly(true)
+                .httpOnly(false)
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
         return new ResponseCookie[]{responseCookie};
