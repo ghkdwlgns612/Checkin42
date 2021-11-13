@@ -22,15 +22,17 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional
-    public UserResponseDto userInfoService(String username) throws NotFoundException {
+    public UserResponseDto userStatusService(String username) throws NotFoundException {
         Optional<User> result = userMapper.findByName(username);
         if (result.isEmpty())
             throw new NotFoundException("존재하지 않는 회원입니다.");
         return UserResponseDto.builder()
                 .userCursus("42 Cursus") //Oauth필요.
-                .createdAt(result.get().getCreated())
+                .checkIn(result.get().getCheckIn())
+                .checkOut(result.get().getCheckOut())
                 .cardNumber(result.get().getCardNumber())
                 .username(result.get().getUsername())
+                .userImage(result.get().getImageUrl())
                 .build();
     }
 
@@ -77,13 +79,13 @@ public class UserService {
 
     @Transactional
     public void updateUser(Integer cardNumber, String username) throws NotFoundException {
-        userInfoService(username);
+        userStatusService(username);
         userMapper.updateByCardNumber(cardNumber, username);
     }
 
     @Transactional
     public void deleteUser(String username) throws NotFoundException {
-        userInfoService(username);
+        userStatusService(username);
         userMapper.deleteByName(username);
     }
 }

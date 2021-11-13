@@ -42,7 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
-                                .antMatchers("/cluster", "/swagger-ui/**/", "/login/callback/**", "/user/**").permitAll()
+                                .antMatchers("/cluster", "/swagger-ui/**/", "/login/callback/**", "/user/**"
+                                , "/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->

@@ -62,12 +62,12 @@ public class IntegrationTest {
     public void checkInTestByUpdateUser() throws DuplicateMemberException, NotFoundException {
         Integer cardNumber = 1500;
         String username = "jihuhwan";
-        UserResponseDto jihuhwan = userService.userInfoService(username);
+        UserResponseDto jihuhwan = userService.userStatusService(username);
 
         Assertions.assertNull(jihuhwan.getCardNumber());
 
         checkInOutService.checkInService(username, cardNumber);
-        jihuhwan = userService.userInfoService(username);
+        jihuhwan = userService.userStatusService(username);
 
         Assertions.assertEquals(cardNumber, jihuhwan.getCardNumber());
     }
@@ -87,12 +87,12 @@ public class IntegrationTest {
     public void checkOutTestByUpdateCardNumber() throws NotFoundException {
         Integer cardNumber = 1500;
         String username = "jihuhwan";
-        UserResponseDto jihuhwan = userService.userInfoService(username);
+        UserResponseDto jihuhwan = userService.userStatusService(username);
 
         Assertions.assertEquals(cardNumber, jihuhwan.getCardNumber());
 
         checkInOutService.checkOutService(username);
-        jihuhwan = userService.userInfoService(username);
+        jihuhwan = userService.userStatusService(username);
 
         Assertions.assertNull(jihuhwan.getCardNumber());
     }
@@ -121,7 +121,7 @@ public class IntegrationTest {
         String username = "testUser";
         userService.createUser(username);
 
-        UserResponseDto result = userService.userInfoService(username);
+        UserResponseDto result = userService.userStatusService(username);
         Assertions.assertEquals(username, result.getUsername());
     }
 
@@ -133,7 +133,7 @@ public class IntegrationTest {
         Integer cardNumber = 1234;
 
         userService.updateUser(cardNumber, username);
-        UserResponseDto result = userService.userInfoService(username);
+        UserResponseDto result = userService.userStatusService(username);
         Assertions.assertEquals(result.getCardNumber(), cardNumber);
     }
 
@@ -144,7 +144,7 @@ public class IntegrationTest {
         String username = "testUser";
         userService.deleteUser(username);
 
-        Assertions.assertThrows(NotFoundException.class, () -> userService.userInfoService(username));
+        Assertions.assertThrows(NotFoundException.class, () -> userService.userStatusService(username));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class IntegrationTest {
         Integer cardNumber = 42;
 
         checkInOutService.checkInService(username, cardNumber);
-        UserResponseDto result = userService.userInfoService(username);
+        UserResponseDto result = userService.userStatusService(username);
         Assertions.assertEquals(result.getCardNumber(), cardNumber);
         Assertions.assertEquals(result.getUsername(), username);
     }

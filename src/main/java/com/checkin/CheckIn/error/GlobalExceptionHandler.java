@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.NoSuchElementException;
+
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -27,6 +29,16 @@ public class GlobalExceptionHandler {
         log.info(e.getMessage());
         return ResultResponseDto.builder()
                 .statusCode(HttpStatus.FORBIDDEN.value())
+                .message(e.getMessage())
+                .data(null)
+                .build();
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResultResponseDto handlerOptionException(Exception e) {
+        log.info(e.getMessage());
+        return ResultResponseDto.builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
                 .data(null)
                 .build();

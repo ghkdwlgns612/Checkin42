@@ -15,7 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Api
 @RestController
@@ -28,22 +31,26 @@ public class UserController {
     private final UserService userService;
     private final JWTUtils jwtUtils;
 
-    @GetMapping("/user")
-    @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto<Object> userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
-        UserResponseDto result = userService.userInfoService(username);
+    @GetMapping("/status")
+    @Operation(summary = "쿠키를 통한 유저 정보 조회")
+    public ResultResponseDto<Object> userStatus(HttpServletRequest request) throws NotFoundException {
+        Cookie token = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals("token"))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("There is no cookie named token in request"));
+        DecodedJWT decodedJWT = jwtUtils.verifyJWT(token.getValue());
+        UserResponseDto userResponseDto = userService.userStatusService(decodedJWT.getClaim("name").asString());
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
-                .data(result)
+                .data(userResponseDto)
                 .build();
     }
 
-    @GetMapping("/user/token")
+    @GetMapping("/user")
     @Operation(summary = "유저 정보 조회", description = "유저의 상세 정보를 얻어올 때 사용합니다.")
-    public ResultResponseDto<Object> userInfo(@CookieValue(value = "token") Cookie cookie) throws NotFoundException {
-        DecodedJWT decodedJWT = jwtUtils.verifyJWT(cookie.getValue());
-        UserResponseDto result = userService.userInfoService(decodedJWT.getClaim("name").asString());
+    public ResultResponseDto<Object> userInfo(@Deprecated @RequestParam String username) throws NotFoundException {
+        UserResponseDto result = userService.userStatusService(username);
         return ResultResponseDto.builder()
                 .message("OK")
                 .statusCode(HttpStatus.OK.value())
