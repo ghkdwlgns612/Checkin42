@@ -20,7 +20,9 @@ public class CookieUtils {
     public ResponseCookie[] makeJWTCookie(User user) {
         ResponseCookie responseCookie = ResponseCookie.from("token", jwtUtils.makeJWT(user))
                 .domain("42cadet.kr")
+                .sameSite("Lax")
                 .path("/")
+                .httpOnly(true)
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
         return new ResponseCookie[]{responseCookie};

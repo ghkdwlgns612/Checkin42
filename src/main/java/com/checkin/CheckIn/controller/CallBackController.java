@@ -7,17 +7,19 @@ import com.checkin.CheckIn.domain.User;
 import com.checkin.CheckIn.repository.usermapper.UserMapper;
 import com.checkin.CheckIn.utils.CookieUtils;
 import com.checkin.CheckIn.utils.JWTUtils;
+import com.checkin.CheckIn.utils.OAuthUtils;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import javassist.bytecode.DuplicateMemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -29,20 +31,40 @@ import java.util.Optional;
 public class CallBackController {
 
     private final JWTUtils jwtUtils;
+    private final OAuthUtils oAuthUtils;
     private final CookieUtils cookieUtils;
     private final UserMapper userMapper;
 
-    public CallBackController(JWTUtils jwtUtils, CookieUtils cookieUtils, UserMapper userMapper) {
+    public CallBackController(JWTUtils jwtUtils, OAuthUtils oAuthUtils, CookieUtils cookieUtils, UserMapper userMapper) {
         this.jwtUtils = jwtUtils;
+        this.oAuthUtils = oAuthUtils;
         this.cookieUtils = cookieUtils;
         this.userMapper = userMapper;
     }
 
-    @GetMapping("user/login/callback/42")
-    public void validateLogin(@RequestParam String code) {
-
+    @GetMapping("/login/callback/42")
+    public ResultResponseDto<User> validateLogin(@RequestParam String code, HttpServletResponse response) throws Exception {
+        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+        response.setHeader(HttpHeaders.LOCATION, "http://checkinclone.42cadet.kr/");
+        User user = oAuthUtils.OAuthInfoUser(code);
+        try {
+            Arrays.stream(cookieUtils.makeJWTCookie(user))
+                    .forEach(responseCookie -> response.addHeader("Set-cookie", responseCookie.toString()));
+            return ResultResponseDto.<User>builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message("4 option cookie Setting")
+                    .data(user)
+                    .build();
+        } catch (Exception e) {
+            return ResultResponseDto.<User>builder()
+                    .statusCode(HttpStatus.BAD_REQUEST.value())
+                    .message("No such user exists")
+                    .data(null)
+                    .build();
+        }
     }
 
+    @Deprecated
     @GetMapping("/mock-make-token/{username}")
     @Operation(summary = "쿠키 자동 설정", description = "username으로 JWT를 만들고 set-Cookie를 통해서 \"/\" path에 쿠키를 자동 세팅해줍니다.")
     public ResultResponseDto<String> MockMakeToken(@PathVariable String username, HttpServletResponse response, HttpServletRequest request) {
