@@ -3,4 +3,4 @@ jwt:
 42:
   clientId: ${CLIENT_ID}
   clientSecret: ${CLIENT_SECRET}
-  redirectUri: "http://gpark.42cadet.kr"
+  redirectUri: "http://gpark.42cadet.kr/login/callback/42"
