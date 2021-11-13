@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class YAMLSecurityResource {
+public class JWTSecurityResource {
     private String secret;
 
     public Algorithm getAlgorithm() {
