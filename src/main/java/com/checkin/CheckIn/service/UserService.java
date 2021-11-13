@@ -28,7 +28,8 @@ public class UserService {
             throw new NotFoundException("존재하지 않는 회원입니다.");
         return UserResponseDto.builder()
                 .userCursus("42 Cursus") //Oauth필요.
-                .createdAt(result.get().getCreated())
+                .checkIn(result.get().getCheckIn())
+                .checkOut(result.get().getCheckOut())
                 .cardNumber(result.get().getCardNumber())
                 .username(result.get().getUsername())
                 .build();
