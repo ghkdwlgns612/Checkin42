@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    include: "security"
   user:
     datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,3 +22,7 @@ spring:
 #    show-sql: true
 #    hibernate:
 #      ddl-auto: create-drop
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
