@@ -56,7 +56,7 @@ public class OAuthUtils {
         HttpEntity<?> http = new HttpEntity<>(null,httpHeaders);
         ResponseEntity<JsonNode> exchange = oAuthClient.exchange(clientRegistration.getProviderDetails().getUserInfoEndpoint().getUri(), HttpMethod.GET, http, JsonNode.class);
         if (userMapper.findByName(exchange.getBody().get("login").asText()).isPresent())
-            throw new DuplicateMemberException("이미 존재하는 회원입니다.");
+            return userMapper.findByName(exchange.getBody().get("login").asText()).get();
         JsonNode jsonNode = exchange.getBody().get("cursus_users");
         JsonNode jsonNode1 = jsonNode.get(jsonNode.size() - 1).get("cursus").get("name");
         User user = User.builder().username(exchange.getBody().get("login").asText())

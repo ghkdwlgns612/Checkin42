@@ -61,7 +61,7 @@ public class IntegrationTest {
     @Order(value = 1)
     public void checkInTestByUpdateUser() throws DuplicateMemberException, NotFoundException {
         Integer cardNumber = 1500;
-        String username = "jihuhwan";
+        String username = "jihuhwan1";
         UserResponseDto jihuhwan = userService.userStatusService(username);
 
         Assertions.assertNull(jihuhwan.getCardNumber());
@@ -86,7 +86,7 @@ public class IntegrationTest {
     @Order(value = 3)
     public void checkOutTestByUpdateCardNumber() throws NotFoundException {
         Integer cardNumber = 1500;
-        String username = "jihuhwan";
+        String username = "jihuhwan1";
         UserResponseDto jihuhwan = userService.userStatusService(username);
 
         Assertions.assertEquals(cardNumber, jihuhwan.getCardNumber());
@@ -110,7 +110,7 @@ public class IntegrationTest {
     @DisplayName("DB에 새로운 유저를 생성할 때 유저가 중복되는지 확인하는 테스트")
     @Order(value = 5)
     public void createDuplicateUser() {
-        String username = "jihuhwan";
+        String username = "jihuhwan1";
         Assertions.assertThrows(DuplicateMemberException.class, () -> userService.createUser(username));
     }
 
@@ -164,8 +164,8 @@ public class IntegrationTest {
     @DisplayName("DB에 사용자들이 있을 때 레포지토리 로직을 실행하면 서초 인원이 맞는지 확인하는 테스트")
     @Order(value = 11)
     public void peopleSeocho() throws DuplicateMemberException, NotFoundException {
-        String username1 = "jihuhwan";
-        String username2 = "gpark";
+        String username1 = "jihuhwan1";
+        String username2 = "gpark1";
 
         Integer cardNumber1 = 1055;
         Integer cardNumber2 = 1056;
