@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.checkin.CheckIn.repository.usermapper.UserMapper">
+    <resultMap id="User" type="com.checkin.CheckIn.domain.User">
+        <result property="id" column="ID" />
+        <result property="intraId" column="INTRA_ID" />
+        <result property="username" column="USERNAME" />
+        <result property="cardNumber" column="CARD_NUMBER" />
+        <result property="checkIn" column="CHECK_IN" />
+        <result property="checkOut" column="CHECK_OUT" />
+    </resultMap>
+
+    <insert id="save">
+        insert into USER (intra_id, username, card_number, check_in, check_out)
+        values (#{intraId}, #{username}, #{cardNumber}, #{checkIn}, #{checkOut})
+    </insert>
+
+    <select id="findAll" resultMap="User">
+        select * from USER
+    </select>
+
+    <select id="findByCardNumberGeapo" resultMap="User">
+        select * from USER where card_number <![CDATA[<=]]> 1000
+    </select>
+
+    <select id="findByCardNumberSeocho" resultMap="User">
+        select * from USER where card_number > 1000
+    </select>
+
+    <delete id="deleteTestAll">
+        delete from USER
+    </delete>
+
+    <select id="countGaepoPeople" resultType="Integer">
+        select count(*) from USER where card_number <![CDATA[<=]]> 1000
+    </select>
+
+    <select id="countSeochoPeople" resultType="Integer">
+        select count(*) from USER where card_number > 1000
+    </select>
+
+    <select id="findByName" resultMap="User">
+        select * from USER where username = #{username}
+    </select>
+
+    <update id="updateByCardNumber">
+        update USER set card_number = #{cardNumber} where username = #{username}
+    </update>
+
+    <update id="updateCheckInByCardNumber">
+        update USER set card_number = #{cardNumber}, check_in = NOW(), check_out = null where username = #{username}
+    </update>
+
+    <update id="updateCheckOutByCardNumber">
+        update USER set card_number = #{cardNumber}, check_out = NOW() where username = #{username}
+    </update>
+
+    <delete id="deleteByName">
+        delete from USER where username = #{username}
+    </delete>
+</mapper>

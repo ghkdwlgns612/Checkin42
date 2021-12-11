@@ -1,29 +1,14 @@
-# README #
+# 42체크인 서비스 #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+42체크인 서비스 입니다. 42서울 Cluster의 출입 기록과 프로세스를 담당하는 서비스입니다.
 
-### What is this repository for? ###
+## INSTALL ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* git clone https://github.com/ghkdwlgns612/Checkin42
+* cd Checkin42
+* mvnw package or ./mvnw clean package
+* java -jar target/Checkin42-0.0.1-SNAPSHOT.jar
 
-### How do I get set up? ###
+## Usage ##
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* http:localhost:8080/

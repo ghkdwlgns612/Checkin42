@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.checkin.CheckIn.repository.logmapper.LogMapper">
+    <resultMap id="Log" type="com.checkin.CheckIn.domain.Log">
+        <result property="id" column="ID" />
+        <result property="username" column="USERNAME" />
+        <result property="cardNumber" column="CARD_NUMBER" />
+        <result property="type" column="type" />
+        <result property="location" column="LOCATION" />
+        <result property="checkIn" column="CHECK_IN" />
+        <result property="checkOut" column="CHECK_OUT" />
+    </resultMap>
+
+    <insert id="saveCheckIn">
+        insert into LOG (username, card_number, type, location, check_in, check_out)
+        values (#{username}, #{cardNumber}, #{type}, #{location}, #{checkIn}, #{checkOut})
+    </insert>
+
+    <insert id="saveCheckOut">
+        insert into LOG (username, card_number, type, location, check_in, check_out)
+        values (#{username}, #{cardNumber}, #{type}, #{location}, #{checkIn}, NOW())
+    </insert>
+
+    <select id="findAll" resultMap="Log">
+        select * from LOG
+    </select>
+
+    <select id="findByName" resultMap="Log">
+        select * from LOG where username = #{username}
+    </select>
+
+    <select id="findAllGaepo" resultMap="Log">
+        select * from LOG where card_number <![CDATA[<]]> 1000
+    </select>
+
+    <select id="findAllSeocho" resultMap="Log">
+        select * from LOG where card_number >= 1000
+    </select>
+
+    <select id="findLastLog" resultMap="Log">
+        select * from LOG order by id desc limit 1
+    </select>
+</mapper>

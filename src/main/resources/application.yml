@@ -1,11 +1,30 @@
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    username: "sa"
-    password:
-    url: "jdbc:h2:tcp://localhost/~/test"
+  user:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL_ID}
+      password: ${MYSQL_PW}
+      jdbc-url: ${MYSQL_URL}
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
+  log:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL_ID}
+      password: ${MYSQL_PW}
+      jdbc-url: ${MYSQL_URL_LOG}
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath*:db/schema.sql
+      data-locations: classpath*:db/data.sql
+  profiles:
+    include: security
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create-drop
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
